@@ -37,16 +37,25 @@ function Homepages() {
                       <h4 className="TopicSecond">Walking</h4>
                       <hr/>
                       <img src={walking} className="picshoe"></img>
+                      <p className="text-secondary textdescript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                          when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
                   </div>
                   <div className="boxitem col-lg-2 col-xs-11" data-aos="zoom-out-up">
                       <h4 className="TopicSecond">Running</h4>
                       <hr/>
                       <img src={running} className="picshoe"></img>
+                      <p className="text-secondary textdescript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                          when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
                   </div>
                   <div className="boxitem col-lg-2 col-xs-11" data-aos="zoom-out-up">
                       <h4 className="TopicSecond">Training</h4>
                       <hr/>
                       <img src={training} className="picshoe"></img>
+                      <p className="text-secondary textdescript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                          when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
                   </div>
               </div>
         
