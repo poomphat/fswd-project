@@ -1,4 +1,4 @@
-import { PromotionTC } from '../../models'
+import { PromotionTC } from '../../models/promotion'
 
 export const promotions = PromotionTC.getResolver('findMany')
 

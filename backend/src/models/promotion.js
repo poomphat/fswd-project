@@ -12,8 +12,14 @@ const PromotionSchema = new Schema({
         type: String, required: false
     },
     discountInPercent:{
-        type: Float,  required: true
+        type: Number
     },
+    productId:{
+        type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'products'
+    },
+    status:{
+        type: Boolean, default: true
+    }, 
 })
 
 export const PromotionModel = mongoose.model('Promotion', PromotionSchema)

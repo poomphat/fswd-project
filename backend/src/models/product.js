@@ -12,10 +12,16 @@ const ProductSchema = new Schema({
         type: String, required: false
     },
     price:{
-        type: Float,  required: true
+        type: Number,  required: true
     },
     catagory:{
         type: String, required: true
+    },
+    genderType:{
+        type: String, required: true
+    },
+    imgUrl:{
+        type: String,
     }
 })
 

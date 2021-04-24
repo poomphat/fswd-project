@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 mongoose.Promise = Promise
 mongoose.connect(
-  'mongodb://localhost:27017',
+  'mongodb://localhost:27018',
   {
     dbName: 'test',
     user: 'user',

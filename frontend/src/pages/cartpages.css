@@ -1,0 +1,19 @@
+.Texttitle{
+    text-align: center;
+}
+.cartlist{
+    border-radius: 8px;
+    padding: 10px;
+}
+.control{
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.picshoes{
+    width: 10%;
+}
+.Totallist{ 
+    border-radius: 8px;
+    padding: 20px;
+}

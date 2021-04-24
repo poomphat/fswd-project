@@ -1,10 +1,21 @@
 import './Navbar.css';
-
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { ME_QUERY } from '../graphql/meQuery'
+import { useSession } from '../context/Sessioncontext'
 function Navbar() {
+  const { loading, user, logout: handleLogout } = useSession()
+  console.log(user)
   return (
     <>
-    <nav class="navbar navbar-expand-lg navbar-light container">
-        <a class="navbar-brand Navmain" href="#">STEPIE</a>
+    <nav class="navbar navbar-expand-lg navbar-light container NavStepie">
+        <Link to="/">
+          <a class="navbar-brand Navmain">STEPIE</a>
+        </Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,27 +23,23 @@ function Navbar() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link Navchild" href="#">sport</a>
+            <Link to="/product">
+              <a class="nav-link Navchild">product</a>
+            </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link Navchild" href="#">women</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link Navchild" href="#">men</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link Navchild" href="#">raffle</a>
+            <Link to="/promotion">
+              <a class="nav-link Navchild">Promotion</a>
+            </Link>
             </li>
           </ul>
-          <form class="form-inline mt-3">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2"/>
-            <div class="input-group-append">
-              <button class="btn btn-dark" type="button" id="button-addon2">Search</button>
-            </div>
-            </div>
-          </form>
+          {user?.name}
+          <Link to="/login">
           <button class="btn btn-light ml-2" type="button" id="button-addon2"><a className="loginbutton">Login</a></button>
+          </Link>
+          <Link to="/cart">
+          <button class="btn btn-light ml-2" type="button" id="button-addon2"><a className="loginbutton">CART </a></button>
+          </Link>
         </div>
       </nav>
   

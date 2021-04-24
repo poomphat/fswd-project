@@ -1,0 +1,178 @@
+
+
+.Bg{
+    width: 100vw;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.elonpic{
+    width: 400px;
+    height: max();
+    transform: scaleX(-1);
+}
+.mainDesElon{
+    width: 80%;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+    align-self: center;
+}
+.firstpic{
+    width: 100%;
+    background-image: url('./asset/image/space.png');
+    height: 110vh;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.textElon{
+    justify-content: center;
+    align-self: center;
+    font-size: 28px;
+    background-color: rgba(100,100,100,0.3);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+    padding:30px;
+    border-radius: 5px;
+    color: #fff;
+    transition: 0.25s;
+    border-left: 0.5rem solid rgba(48,290,88);
+}
+.textElon:hover{
+    transform: scale(1.01,1.01);
+}
+.centerS{
+    display: flex;
+    flex-direction:column;
+}
+
+.rocket{
+    background-image: url('./asset/image/rocket.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+.mainContent{
+    position: absolute;
+    align-self: center;
+    width: 100vw;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+.contentFirst{
+    margin-top: 30px;
+    border-left: 0.5rem solid  rgba(10,10,10,0.7);
+    background: linear-gradient(to left, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.7) 50%) right;
+    background-size: 200%;
+    padding: 0.5rem;
+    text-align: center;
+    color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    margin-right: 15px;
+    transition: 0.25s;
+}
+.contentFirst:hover{ 
+    background-position: left;
+    transform: scale(1.05,1.05);
+    color: white;
+    border-left: 0rem solid rgba(10,10,10);
+    cursor: pointer;
+    padding-left: -0.5rem;
+}
+.footerSpaceX{
+    background-color: #fff;
+    width: 400px;
+    height: 300px;
+}
+.about{
+    justify-content: center;
+    align-self: center;
+    font-size: 18px;
+    background-color: rgba(100,100,100,0.3);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+    padding:30px;
+    color: #fff;
+    transition: 0.25s;
+    border-radius: 5px;
+    border-left: 0.5rem solid rgba(48,290,88);
+    margin-left: 20px;
+}
+.detail{
+    background: rgba(0,0,0,0.75);
+    border-left: 0.5rem solid rgba(48,290,88);
+}
+.TitleRocket{
+    align-self: left;
+    padding-top: 10px;
+    text-align: left;
+    border-radius: 5px;
+    color: #fff;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
+}
+.descript{
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 20px;
+}
+.formEz{
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    width: 100%;
+    padding-bottom: 15px;
+    padding-left: 10px
+}
+.images{
+    padding-top: 5vh;
+    padding-bottom: 10vh;
+    background-image: url('./asset/image/rocket.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+}
+.rocketImage{
+    width: 100vw;
+    height:40vh;
+    border-radius: 0;
+    background-size: cover;
+    background-position:center;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
+  }
+  .paperText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height:40vh;
+    position:relative;
+    text-align:right;
+    align-self: center;
+    padding: 10px;
+    color: white;
+    transition: 0.25s;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
+  }
+  .paperText:hover{
+    background-color: rgba(0,0,0,0.55);
+  }
+  .launchCard:hover{
+    background-color: rgba(0,0,0,0.55);
+    cursor: pointer;
+    color: white;
+  }
+  .launchCard{
+    transition: 0.25s !important;
+  }
