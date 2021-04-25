@@ -52,7 +52,7 @@ function Homepages() {
         </div>
         <div className="container-fluid contentsecond">
           <div className="container">
-              <h2 className="">Top product</h2>
+              <h2 className="textbold">Top product</h2>
               <hr/>
               
               <div className="productlist pb-4">
@@ -79,7 +79,7 @@ function Homepages() {
           </div>
           </div>
           <div className="container mt-4">
-              <h2 className="">Top promotion</h2>
+              <h2 className="textbold">Top promotion</h2>
               <hr/>
               
               <div className="productlist row pb-4">

@@ -10,23 +10,6 @@ const CartSchema = new Schema({
     index: true,
     ref: 'User',
   },
-  products:[
-    {
-        productId:{
-            type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'products'
-        },
-        quantity:{ type:Number , reqiured:true, default:1}
-    }
-  ],
-  promotions:[
-    {
-        promotionId:{
-            type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'promtions'
-        },
-        quantity:{ type:Number , reqiured:true, default:1}
-    }
-  ],
-
 })
 
 export const CartModel = mongoose.model('Cart', CartSchema)

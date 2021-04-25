@@ -6,6 +6,7 @@ query{
       promotionName
       promotionDesc
       discountInPercent
+      _id
       productId
           disProduct{
         productName

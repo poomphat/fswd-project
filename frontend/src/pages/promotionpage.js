@@ -28,7 +28,6 @@ function PromotionPage() {
                     </div>
                 </form>
                 <div className="row">
-                  
                 {data?.promotions?.map((item, i) => {
                     return (<PromotionCard data={item} index={i}/>);
                     })}

@@ -39,10 +39,15 @@ function Register() {
   )
   const handleRegister = useCallback(
     async (e) => {
-      await createCustomer({ variables: { username: username, password: password, name:name}}).then(result =>{
-        const userId = result.data.createUser.record._id;
-        createCart({ variables: { userId: userId}})
-      })
+      try{
+        await createCustomer({ variables: { username: username, password: password, name:name}}).then(result =>{
+          const userId = result.data.createUser.record._id;
+          createCart({ variables: { userId: userId}})
+        })
+      }
+      catch(error){
+        console.log(error)
+      }
     },
   )
   const redirectToLogin = useCallback(

@@ -4,16 +4,23 @@
 .cartlist{
     border-radius: 8px;
     padding: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 .control{
     margin: auto;
     justify-content: center;
     align-items: center;
 }
-.picshoes{
-    width: 10%;
-}
+
 .Totallist{ 
     border-radius: 8px;
     padding: 20px;
+}
+.imgcart{
+    border-radius: 10px !important;
+    object-fit: cover;
+    height: 130px;
+}
+.flexbetween{
+    justify-content: space-between;
 }

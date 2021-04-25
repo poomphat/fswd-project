@@ -7,6 +7,7 @@ mutation{
       productDesc
       price
       imgUrl
+      _id
     }
   }
 `

@@ -15,7 +15,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
+import PrivateRoute from '../src/route/PrivateRoute'
 AOS.init();
 function App() {
   return (
@@ -51,17 +51,14 @@ function App() {
                 <Product/>
                 </>
             </Route>
-            <Route exact path='/cart'>
-                <>
-                <Cart/>
-                </>
-            </Route>
+            <PrivateRoute exact path='/cart'><Cart/></PrivateRoute>
+              
             <Route exact path='/promotion'>
                 <>
                 <Promotion/>
                 </>
             </Route>
-            <Route exact path='/productdetail/1'>
+            <Route exact path='/productdetail/:string'>
                 <>
                 <Productdetail/>
                 </>
