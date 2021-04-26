@@ -14,6 +14,10 @@ query ($Id: String!) {
         productName
         productDesc
         price
+        imgUrl
+        hasStock{
+          quantity
+        }
       }
       quantity
     }
@@ -23,6 +27,12 @@ query ($Id: String!) {
         promotionName
         promotionDesc
         discountInPercent
+        disProduct{
+          _id
+          productName
+          productDesc
+          price
+        }
       }
       quantity
     }

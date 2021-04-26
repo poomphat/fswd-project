@@ -17,3 +17,12 @@
 .shoecard{
     border-radius: 9px !important;
 }
+.alignend{
+    text-align: right;
+    font-weight: bold;
+}
+.flexright{
+    align-items: flex-end !important;
+    display: flex;
+    justify-content: flex-end
+}

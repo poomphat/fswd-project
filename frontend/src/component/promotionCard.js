@@ -1,52 +1,44 @@
 import { CREATE_PROMOTION_CART_MUTATION } from '../graphql/createPromotionCartMutation'
 import { FIND_CART_QUERY } from '../graphql/findCartQuery'
-import { FIND_ALL_CARTPROMOTION } from '../graphql/findManyPromotionQuery'
 import { useSession } from '../context/Sessioncontext'
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { useCallback, useEffect } from 'react'
-
+import { useMutation, useLazyQuery  } from '@apollo/client'
+import {useCallback, useEffect,useState,useMemo} from 'react'
+import { updatePromotionCartHandler } from './updateCartHandler'
 const PromotionCard = (props) =>{
-    /*
+    
     const item = props?.data
-    const { loading, user } = useSession()
+    const [userid, setuserid] = useState('')
+    const { user , loading:userLoading } = useSession()
     const [createPromotionCart] = useMutation(CREATE_PROMOTION_CART_MUTATION)
-    const {data:cartData, refetch} = useQuery(FIND_CART_QUERY, {variables: { Id:user?._id}})
+    const [getCart, {loading,data:datacart}] = useLazyQuery(FIND_CART_QUERY, { fetchPolicy: 'network-only' },)
 
-    const refatchHandler = useCallback( async() =>{
-        await refetch()
-    })
-    useEffect(()=>{
-        refatchHandler()
-    },[cartData])
+    useMemo( () =>{
+        setuserid(user?._id)
+        getCart( {
+            variables: { Id: user?._id }
+        })
+    },[user,userLoading])
 
-    const updatePromotionCartHandler = useCallback( async (promotionId) =>{
-        const promotionCartData = cartData?.cart?.promotions
-        console.log(cartData)
-        try{
-            const find = promotionCartData?.find(o => (o.forPromotion?._id === promotionId))
-            if(find){
-                console.log('dupeeeee')
-            }else{
-                console.log(promotionId, cartData?.cart?._id)
-                await createPromotionCart({
-                    variables:{
-                        promotionId:promotionId, 
-                        cartId:cartData?.cart?._id,
-                        quantity:1
-                    }}).then(
-                )
-            };
-            
+    const Addbutton = () => {
+        const promotionCartData ={
+            promotionId:item?._id,
+            cartId:datacart?.cart?._id,
+            promotions:datacart?.cart?.promotions,
+            createPromotionCart:createPromotionCart
         }
-        catch(error){
-            console.log(error)
+        if(loading){
+            return  <button class="btn btn-dark ml-2" disabled >Add</button>
+        }else{
+            return  <button class="btn btn-dark ml-2" onClick={() => {
+                getCart( {
+                    variables: { Id: user?._id }
+                })
+                updatePromotionCartHandler(promotionCartData)
+            }}>Add</button>
         }
-        await refatchHandler()
-
-    })*/
+    }
         return (
-            <></>/*
-            <div className="col-lg-6 col-sm-12 ml-3 mr-3 row mainnaja" data-aos="fade-up" data-aos-delay={200*(props.index+1)}>
+            <div className="col-lg-6 col-sm-12 ml-3 mr-3 row mainnaja">
                 <div className="headborder bg-dark text-light col-4">
                     <p className="mb-1 textsmall">promotion</p>
                     <h6 className="boldhead">Discount {item?.promotionName}</h6>
@@ -58,10 +50,10 @@ const PromotionCard = (props) =>{
                
                     <div className="flexbe row pr-3 pl-3"> 
                         <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.disProduct?.price/((100+item?.discountInPercent)/100))} USD</h5>
-                        <button class="btn btn-dark ml-2" onClick={() => updatePromotionCartHandler(item?._id)}>Buy</button>
+                        <Addbutton/>
                     </div>
                 </div>
-            </div>*/
+            </div>
         );
 }
 

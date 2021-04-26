@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express'
 import jwt from 'express-jwt'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-
+import { graphqlUploadExpress  } from 'graphql-upload'; 
 import './mongoose-connect'
 import schema from './graphql'
 
@@ -14,7 +14,7 @@ const server = new ApolloServer({
   playground: true,
   context: ({ req }) => ({ user: req.user }),
 })
-
+app.use(graphqlUploadExpress())
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

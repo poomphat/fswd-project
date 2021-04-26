@@ -13,7 +13,6 @@ const CartPromotionsSchema = new Schema({
     cartId:{
         type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'cart', unique:false, index: true,
     },
-    uniqueId:{type: String, required: true, unique:true}
 },)
 
 export const CartPromotionsModel = mongoose.model('CartPromotion', CartPromotionsSchema)

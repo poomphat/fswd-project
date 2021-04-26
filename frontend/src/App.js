@@ -6,6 +6,8 @@ import Cart from '../src/pages/cartpages'
 import Productdetail from '../src/pages/detailpages'
 import Promotion from '../src/pages/promotionpage'
 import Register from '../src/pages/registerPage'
+import AboutMe from '../src/pages/aboutmepage'
+import Order from '../src/pages/orderpage'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Navbar from './component/Navbar'
@@ -51,8 +53,9 @@ function App() {
                 <Product/>
                 </>
             </Route>
+            <PrivateRoute exact path='/aboutme'><AboutMe/></PrivateRoute>
             <PrivateRoute exact path='/cart'><Cart/></PrivateRoute>
-              
+            <PrivateRoute exact path='/customer/order'><Order/></PrivateRoute>
             <Route exact path='/promotion'>
                 <>
                 <Promotion/>

@@ -13,7 +13,12 @@ function Navbar() {
   
     if (user){
       return(
+        <div>
+        <Link to="/customer/order">
+          <button class="btn btn-light ml-2" type="button"><a className="loginbutton">Order</a></button>
+        </Link>
         <button class="btn btn-danger ml-2" type="button" onClick={handleLogout}>Log out</button>
+        </div>
       )
     }
     else{
@@ -47,8 +52,9 @@ function Navbar() {
             </Link>
             </li>
           </ul>
-          {user?.name}
-         
+          <Link to="/aboutme">
+          <a class="nav-link Navchild text-dark">{user?.name}</a>
+         </Link>
           <Link to="/cart">
           <button class="btn btn-light ml-2" type="button" id="button-addon2"><a className="loginbutton">CART </a></button>
           </Link> 

@@ -7,14 +7,15 @@ import {
   } from "react-router-dom";
 import { CREATE_PRODUCT_CART_MUTATION } from '../graphql/createProductCartMutation'
 import { FIND_CART_QUERY } from '../graphql/findCartQuery'
-import { FIND_ALL_CARTPRODUCT } from '../graphql/fineManyCartProduct'
 import { useSession } from '../context/Sessioncontext'
-import { gql, useMutation, useQuery, useLazyQuery  } from '@apollo/client'
+import { useMutation, useLazyQuery  } from '@apollo/client'
 import {useCallback, useEffect,useState,useMemo} from 'react'
+import { updateProductCartHandler } from './updateCartHandler'
+
 const ShoesCard = (props) =>{
     const item = props.item;
     const [userid, setuserid] = useState('')
-    const { user , loading:userLoading} = useSession()
+    const { user , loading:userLoading } = useSession()
     const [createProductCart] = useMutation(CREATE_PRODUCT_CART_MUTATION)
     const [getCart, {loading,data:datacart}] = useLazyQuery(FIND_CART_QUERY, { fetchPolicy: 'network-only' },)
     //console.log(user?._id)
@@ -25,31 +26,13 @@ const ShoesCard = (props) =>{
         })
     },[user,userLoading])
 
-    const updateProductCartHandler = useCallback( async (productId, idcart ,arrayproduct) =>{
-        const productCartData = arrayproduct
-        //await refatchHandler()
-        try{
-            const find = productCartData?.find(o => (o.forProduct?._id === productId))
-            if(find){
-                console.log('dupeeeee')
-            }else{
-                await createProductCart({
-                    variables:{
-                        productId:productId, 
-                        cartId: idcart,
-                        quantity:1
-                    }}).then(
-                )
-            };
-            
-        }
-        catch(error){
-            console.log(error)
-        }
-
-    },[])
-      
     const Addbutton = () => {
+        const productCartData ={
+            productId:item?._id,
+            cartId:datacart?.cart?._id,
+            products:datacart?.cart?.products,
+            createProductCart:createProductCart
+        }
         if(loading){
             return  <button class="btn btn-dark col" disabled >Add</button>
         }else{
@@ -57,17 +40,17 @@ const ShoesCard = (props) =>{
                 getCart( {
                     variables: { Id: user?._id }
                 })
-                updateProductCartHandler(item?._id, datacart?.cart?._id, datacart?.cart?.products)
+                updateProductCartHandler(productCartData)
             }}>Add</button>
         }
     }
-    const Asdasdasdaweweasdasd = () => {
+    const ShoesDetail = () => {
         if(userLoading){
-            return  <p>Loading...</p>
+            return  <p></p>
         }else{
             return(  <div class="col-lg-4 col-sm-12 mb-3 pr-0">
-                        <div class="card bg-light text-dark shadow shoecard" data-aos="zoom-out" data-aos-mirror="false">
-                            <img class="card-img-top imgs" src={(item?.imgUrl==null)?notfound:item?.imgUrl} alt="Card image cap"/>
+                        <div class="card bg-light text-dark shadow shoecard">
+                            <img class="card-img-top imgs" src={(item?.imgUrl==null || !item?.imgUrl )?notfound:item?.imgUrl} alt="Card image cap"/>
                             <div class="card-body">
                                 <h5 class="card-title">{item?.productName}</h5>
                                 <p class="card-text">{item?.productDesc}</p>   
@@ -92,7 +75,7 @@ const ShoesCard = (props) =>{
                     )
         }
     }
-    return(<Asdasdasdaweweasdasd/>)
+    return(<ShoesDetail/>)
 }
 
-export default ShoesCard;
+export default ShoesCard

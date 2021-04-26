@@ -12,7 +12,7 @@ import { FIND_ALL_PROMOTIONS } from '../graphql/findPromotionQuery'
 import PromotionCard from '../component/promotionCard'
 
 function Homepages() {
-    const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION)
+    const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION,{variables :{ limit: 4,skip: 0 }})
     const [product, setProduct] = useState()
     const { load, data } = useQuery(FIND_ALL_PROMOTIONS)
     const [promotions, setPromotions] = useState()
