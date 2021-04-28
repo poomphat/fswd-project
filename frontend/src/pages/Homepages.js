@@ -1,4 +1,10 @@
 import './Homepages.css';
+import {
+    BrowserRouter,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import {useState, useEffect, useCallback} from 'react'
 import Navbar from '../component/Navbar'
 import shoe from '../asset/shoe/shoe.png'
@@ -52,7 +58,7 @@ function Homepages() {
         </div>
         <div className="container-fluid contentsecond">
           <div className="container">
-              <h2 className="textbold">Top product</h2>
+              <h2 className="textbold">Latest product</h2>
               <hr/>
               
               <div className="productlist pb-4">
@@ -69,7 +75,9 @@ function Homepages() {
                             <div class="card-footer text-dark flexbe ">
                                 
                                 <h6 className="boldhead mb-0 totaltext mt-2 ">{item?.price} USD</h6>
-                                <button class="btn btn-dark col mt-2">Buy</button>
+                                <Link to={"/productdetail/"+ item?._id}>
+                                    <button class="btn btn-light col mt-2">More</button>
+                                </Link>
                                     
                                 </div>
                         </div>
@@ -79,7 +87,7 @@ function Homepages() {
           </div>
           </div>
           <div className="container mt-4">
-              <h2 className="textbold">Top promotion</h2>
+              <h2 className="textbold">Latest promotion</h2>
               <hr/>
               
               <div className="productlist row pb-4">

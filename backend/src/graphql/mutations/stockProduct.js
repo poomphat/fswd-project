@@ -1,4 +1,5 @@
 import { StockTC } from '../../models'
 
 export const createStock = StockTC.getResolver('createOne')
-export const updateStockById = StockTC.getResolver('updateById')
+export const updateStock = StockTC.getResolver('updateOne')
+export const updateStockMany = StockTC.getResolver('updateMany')

@@ -5,3 +5,9 @@
     width: 100%;
     border-radius: 10px;
 }
+.bghaft{
+    height: 100vh;
+    background-image: url('../asset/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

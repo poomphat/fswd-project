@@ -8,6 +8,7 @@ query ($Id: String!) {
     }
   ){
     _id
+    userId
     products{
       forProduct{
         _id

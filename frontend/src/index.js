@@ -5,16 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CookiesProvider } from 'react-cookie'
 import { BrowserRouter } from 'react-router-dom'
+import { createUploadLink } from 'apollo-upload-client';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 
 import { SessionProvider } from './context/Sessioncontext'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
   cache: new InMemoryCache(),
-  credentials:'include',
+  link: createUploadLink({
+    uri: 'http://localhost:3001/graphql',
+    credentials: 'include',
+  }),
 })
-
 ReactDOM.render(
   <React.StrictMode>
     <CookiesProvider>

@@ -24,3 +24,8 @@
 .flexbetween{
     justify-content: space-between;
 }
+.justifycenter{
+    align-items: center;
+    flex-direction: row;
+    justify-content:center;
+}

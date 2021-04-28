@@ -13,6 +13,24 @@ function Order() {
        console.log(img)
        Create({ variables : { imgUrl : img}})
     }
+    const UPLOAD_FILE = gql`
+      mutation uploadFile($file: Upload!){
+        uploadFile(file: $file){
+          url
+        }
+      }
+    `
+    const [uploadFile] = useMutation(UPLOAD_FILE, {
+      onCompleted: data => console.log(data)
+    })
+    const handleFileChange = useCallback(
+      async (e) => {
+        const { files: [inputFile] } = e.target
+        setImg(inputFile)
+      },
+      [],
+    )
+    
     return (
   
     <div className="bg">
@@ -25,7 +43,7 @@ function Order() {
             <div class="form-group">
                 <label for="exampleFormControlFile1">Example file input</label>
                 <input type="file" class="form-control-file" id="exampleFormControlFile1" 
-                  onChange={(event) => {setImg(event.target.files[0])}}/>
+                  onChange={handleFileChange}/>
             </div>
             <button class="btn btn-light" type="button" onClick={onUploadImg}>Submit</button>
         </form>

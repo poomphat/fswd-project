@@ -8,8 +8,11 @@ import Promotion from '../src/pages/promotionpage'
 import Register from '../src/pages/registerPage'
 import AboutMe from '../src/pages/aboutmepage'
 import Order from '../src/pages/orderpage'
+import AddOrder from '../src/pages/Addproduct'
+import PaymentPage from '../src/pages/paymentPage'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import 'antd/dist/antd.css';
 import Navbar from './component/Navbar'
 import {
   BrowserRouter,
@@ -56,6 +59,8 @@ function App() {
             <PrivateRoute exact path='/aboutme'><AboutMe/></PrivateRoute>
             <PrivateRoute exact path='/cart'><Cart/></PrivateRoute>
             <PrivateRoute exact path='/customer/order'><Order/></PrivateRoute>
+            <PrivateRoute exact path='/addproduct'><AddOrder/></PrivateRoute>
+            <PrivateRoute exact path='/payment'><PaymentPage/></PrivateRoute>
             <Route exact path='/promotion'>
                 <>
                 <Promotion/>

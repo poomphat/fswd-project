@@ -1,18 +1,21 @@
 import { gql } from '@apollo/client'
 
 export const FIND_PRODUCT_QUERY = gql`
-query ($name: String!) {
+query ($id: MongoID!) {
     product(
        filter:{
-        productName:$name
+        _id:$id
       }
     ){
-      _id
+    _id
     productName
     productDesc
     price
     catagory
     imgUrl
+    hasStock{
+      quantity
+    }
     }
   }
 `

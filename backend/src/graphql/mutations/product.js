@@ -10,35 +10,19 @@ export const updateProductById = ProductTC.getResolver('updateById')
 export const removeProductById = ProductTC.getResolver('removeById')
 export const countProduct = ProductTC.getResolver('count')
 
-schemaComposer.add(GraphQLUpload);
-
-const Addproduct = schemaComposer.createObjectTC({
-    name: 'addproduct',
-    fields: {
-        productName: 'String',
-        productDesc: 'String',
-        catagory: 'String',
-        price: 'Float',
-        imgUrl: 'Upload',
-        genderType: 'String',
-    },
-  })
 
 
-schemaComposer.Mutation.addFields({
-    createProductImg: {
-      type: Addproduct,
+export const upload = schemaComposer.createResolver({
+      name : 'upload',
+      type: "String",
+      kind: 'mutation',
       args: {
-        productName: 'String',
-        productDesc: 'String',
-        catagory: 'String',
-        price: 'Float',
-        imgUrl: '[Upload]',
-        genderType: 'String',
+        imgUrl: GraphQLUpload,
       },
-      resolve: async ({ args }) => {
-        const newproduct = { args };
-        return newproduct;
+      resolve: async ({ args, context }) => {
+        const { imgUrl } = args
+        const { uploadFile } = context
+        const filename = await uploadFile(imgUrl)
+        return filename
       },
-    },
   }); 

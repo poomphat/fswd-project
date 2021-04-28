@@ -8,6 +8,9 @@ mutation($skip:Int!,$limit:Int!){
     price
     imgUrl
     _id
+    hasStock{
+      quantity
+    }
   }
 }
 `

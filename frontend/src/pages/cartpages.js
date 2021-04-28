@@ -1,22 +1,48 @@
 import './cartpages.css';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useParams,Link
+  } from "react-router-dom";
 import Navbar from '../component/Navbar'
-import shoe from '../asset/shoe/shoe.png'
 import {useState, useEffect, useCallback, useMemo} from 'react'
-import PromotionCard from '../component/promotionCard'
 import { gql, useMutation, useQuery, useLazyQuery } from '@apollo/client'
 import { FIND_ALL_PROMOTIONS } from '../graphql/findPromotionQuery'
-import { FIND_MANY_MUTATION } from '../graphql/findProductMutation'
 import { FIND_CART_QUERY } from '../graphql/findCartQuery'
-import notfound from '../asset/notfound.jpg'
+import { CREATE_ORDER_MUTATION } from '../graphql/createOrderMutation'
+import { DELETE_CART_PRODUCT_MANY } from '../graphql/deleteCartProductMany'
+import { DELETE_CART_PROMOTION_MANY } from '../graphql/deleteCartPromotionMany'
+import { UPDATE_STOCK_MUTATION } from '../graphql/updateStockMutation'
 import { useSession } from '../context/Sessioncontext'
+import { useHistory } from 'react-router-dom'
+import { notification } from 'antd';
+import { Result, Button } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
+import CartProduct from '../component/CartProduct'
+import CartPromotion from '../component/cartPromotion'
+import { SmileTwoTone, HeartTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
 function Cartpages() {
     const { user , loading:userLoading } = useSession()
     const [userid, setuserid] = useState('')
     const { data:promotions } = useQuery(FIND_ALL_PROMOTIONS)
-    //const [findManyProduct, {loadings}] = useMutation(FIND_MANY_MUTATION)
+    const [createOrder] = useMutation(CREATE_ORDER_MUTATION)
+    const [wipeProductCart] = useMutation(DELETE_CART_PRODUCT_MANY)
+    const [wipePromotionCart] = useMutation(DELETE_CART_PROMOTION_MANY)
+    const [updateStock] = useMutation(UPDATE_STOCK_MUTATION)
     const [getCart, {loading, data:dataCart}] = useLazyQuery(FIND_CART_QUERY, { fetchPolicy: 'network-only' },)
-    //const [product, setProduct] = useState()
+
+    const history = useHistory()
+    const goToCheckOut = useCallback(
+        (order) => {
+          history.push({
+              pathname: '/payment',
+              order : order
+          })
+        },
+        [history],
+      )
 
     
     useMemo( () =>{
@@ -66,93 +92,142 @@ function Cartpages() {
     }
 
     const checkOut = () =>{
+        // fatch cart data before deal with data
+        getCart({variables: { Id: user?._id }})
+        if (loading){
+            console.log('load cart')
+        }
+        else {
+            return dataHandler()
+        }
+    }
+
+    const dataHandler = () =>{
         const tempProducts = dataCart?.cart?.products 
         const products = []
-        try{    
+        const orderProduct = []
+        const orderPromotion = []
+        try{
+            //prepare products data
+            console.log(dataCart)
             tempProducts.map((item, i) => {
                 products.push({
                     quantity:item?.quantity,
                     productId:item?.forProduct?._id,
                     stock:item?.forProduct?.hasStock?.quantity
                 })
+            //prepare OrderProduct data
+                orderProduct.push({
+                    quantity:item?.quantity,
+                    productId:item?.forProduct?._id,
+                })
 
             })
+            //merge promotion quantity with matching product data
             dataCart?.cart?.promotions?.map((item, i) => {
                 const proProduct = products?.find(o => (o.productId === item?.forPromotion?.disProduct?._id))
+                // prepare OrderPromotions data
+                orderPromotion.push({
+                    quantity:item?.quantity,
+                    promotionId:item?.forPromotion?._id,
+                })
+                // matching promotion and product data
                 if(proProduct){
                     const productQuantity = products[products.indexOf(proProduct)].quantity
                     const promotionQuantity = item?.quantity
                     products[products.indexOf(proProduct)].quantity = productQuantity+promotionQuantity
 
                     if(products[products.indexOf(proProduct)].quantity > products[products.indexOf(proProduct)].stock){
-                        throw 'no'
+                        throw 'Out of Stock BTW'
                     }
 
                 }
             })
+            const newOrderRecord = {
+                userId:dataCart?.cart?.userId,
+                status:'WAITING',
+                products:orderProduct,
+                promotions:orderPromotion
+            }
+            //create order
+            createOrder({variables:{record:newOrderRecord}}).then( (result) =>{
+                //result.data?.createOrder
+                            //update Stock
+                products.map((item, i) => {
+                    const quantity = item.stock - item.quantity
+                    if(quantity < 0){
+                        throw 'Out of Stock BTW'
+                    }
+                    updateStock({variables:{productId:item.productId, quantity:quantity}})
+                })
+                
+                //wipe cart
+                wipeProductCart({variables:{cartId:dataCart?.cart?._id}})
+                wipePromotionCart({variables:{cartId:dataCart?.cart?._id}})
+
+                goToCheckOut(result.data?.createOrder)
+
+            })
+        
         }
         catch(error){
             console.log(error)
         }
     }
-
   return (
     <div className="bg">
         <Navbar/>
             <div className="container mt-5">
                 <h2 className="Texttitle" data-aos="fade-right">Cart</h2>
                 <hr></hr>
-                <div className="row">
-                <div className="col-lg-8 col-sm-12">
-                <div className="row flexbetween ml-2 mr-2">
-                    <h3 className="textbold">Product</h3> <h3 className="textbold">Amount : {dataCart?.cart?.products?.length}</h3>
-                </div>
-                {dataCart?.cart?.products?.map((item, i) => {
-                    return (
-                    <div class="col-lg-12 col-sm-12 mt-2 row cartlist bg-light ml-0">
-                    <img src={(item?.forProduct?.imgUrl==null)?notfound:item?.forProduct?.imgUrl} className="picshoescart col-lg-2 col-sm-4 pl-0 imgcart pr-0"></img>
-                    <div className="col-lg-10 col-sm-8">
-                    <h5 class="card-title">{item?.forProduct?.productName}</h5>
-                    <hr></hr>
-                        Quantity: {item.quantity}
-                       
-                    </div>
+                
+               
+                     {(dataCart?.cart?.products?.length == 0 && dataCart?.cart?.promotions?.length == 0)?
+                        <div className="justifycenter">
+                          <Result
+                          icon={<HeartTwoTone twoToneColor="#eb2f96" />}
+                          title="You don't have any item on this cart"
+                          extra={<button className="btn btn-light" onClick={()=> history.push('/')}>Go to shopping</button>}
+                          centered={true}
+                        />
+                        </div>
+                        : 
+                        <>
+                    <div className="row"> 
+                        <div className="col-lg-8 col-sm-12">
+                        <div className="row flexbetween ml-2 mr-2">
+                                <h3 className="textbold">Product</h3> <h3 className="textbold">Amount : {dataCart?.cart?.products?.length}</h3>
+                        </div>
                         
-                    </div>
-                    );
-                    })}
-                    <div className="row flexbetween ml-2 mr-2">
-                        <h3 className="textbold mt-4 mb-4">Promotion</h3> <h3 className="textbold mt-4 mb-4">Amount : {dataCart?.cart?.promotions?.length}</h3>
-                    </div>
-                    {dataCart?.cart?.promotions?.map((item, i) => {
-                        return (
-                            <div className="col-lg-12 row mainnaja pr-0 pl-0 ml-0 mb-4">
-                                <div className="headborder bg-dark text-light col-4">
-                                    <p className="mb-1 textsmall">promotion</p>
-                                    <h6 className="boldhead">Discount {item?.forPromotion?.promotionName}</h6>
-                                </div>
-                                <div class="bg-light col-8 bodyborder">  
-                                <h6 className="boldhead mb-1">{item?.forPromotion?.disProduct?.productName}</h6>
-                                <hr/>
-                                    <div className="flexbe row pr-3 pl-3"> 
-                                    <h5 className="boldhead mb-0 totaltext mt-2">Quantity : {item.quantity}</h5>
-                                        <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.forPromotion?.disProduct?.price/((100+item?.forPromotion?.discountInPercent)/100))} USD</h5>
-
-                                    </div>
+                            {dataCart?.cart?.products?.map((item, i) => {
+                            return (
+                                <CartProduct getCart={getCart} user={user} items={item} dataCart={dataCart}/>
+                                    );
+                                })}  
+                        <div className="row flexbetween ml-2 mr-2">
+                                <h3 className="textbold mt-4 mb-4">Promotion</h3> <h3 className="textbold mt-4 mb-4">Amount : {dataCart?.cart?.promotions?.length}</h3>
+                        </div>
+                            {dataCart?.cart?.promotions?.map((item, i) => {
+                                return (<CartPromotion item={item}  getCart={getCart} user={user}/>)
+                            })}
+                       </div> 
+                            <div className="col-lg-4 col-sm-12 mt-4">
+                                <div className="bg-light Totallist">
+                                    <h4 className="textbold">Total : {sumOfPrice(dataCart?.cart?.products, dataCart?.cart?.promotions)} USD</h4>
+                                    <hr/>
+                                    <button class="btn btn-warning col control" onClick={() => {checkOut()}}>Check out</button>
+                                    <button class="btn btn-secondary col control mt-2" >cancel</button>
                                 </div>
                             </div>
-                        );
-                    })}
-                </div>
-                    <div className="col-lg-4 col-sm-12 mt-4">
-                        <div className="bg-light Totallist">
-                            <h4 className="textbold">Total : {sumOfPrice(dataCart?.cart?.products, dataCart?.cart?.promotions)} USD</h4>
-                            <hr/>
-                            <button class="btn btn-warning col control" onClick={() => {checkOut()}}>Check out</button>
-                            <button class="btn btn-secondary col control mt-2" >cancel</button>
-                        </div>
-                    </div>
-                </div>
+                            </div>
+                    </> 
+                     }
+               
+                    
+    
+               
+                   
+                
             </div>  
     </div>
     

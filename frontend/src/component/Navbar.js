@@ -51,6 +51,11 @@ function Navbar() {
               <a class="nav-link Navchild">Promotion</a>
             </Link>
             </li>
+            <li class="nav-item">
+            <Link to="/addproduct">
+              <a class="nav-link Navchild">Add Product</a>
+            </Link>
+            </li>
           </ul>
           <Link to="/aboutme">
           <a class="nav-link Navchild text-dark">{user?.name}</a>
