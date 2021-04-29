@@ -47,7 +47,7 @@ const OrderCard = (props) => {
                                 <div className="col-6 mt-2">
                                     <div className="bg-dark boxpromotion text-lightml-3">
                                     <p className="text-light">{item.promotionId}</p> 
-                                    <p className="text-light">Price: {item?.forPromotion?.price} USD</p>
+                                    <p className="text-light">Price: {item?.forPromotion?.price} US</p>
                                     </div>
                                 </div>
                                     );
