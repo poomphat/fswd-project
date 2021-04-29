@@ -49,7 +49,7 @@ const ShoesCard = (props) =>{
     const ShoesDetail = () => {
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
             return(  
-                <Spin indicator={antIcon} tip="Loading..." spinning={loading} >
+                <Spin indicator={antIcon} tip="Loading..." spinning={loading}  delay={200}>
                         <div class="card bg-light text-dark shadow shoecard">
                             <img class="card-img-top imgs" src={(item?.imgUrl==null || !item?.imgUrl )?notfound: item?.imgUrl} alt="Card image cap" crossOrigin="anonymous" />
                             <div class="card-body">

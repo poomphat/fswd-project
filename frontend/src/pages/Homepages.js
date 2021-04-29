@@ -101,7 +101,7 @@ function Homepages() {
           <div className="row center">
         
                   <div className="boxitem col-lg-2 col-xs-11 bg-dark text-light" data-aos="zoom-out-up">
-                      <h4 className="TopicSecond">Walking</h4>
+                      <h4 className="TopicSecond text-light">Walking</h4>
                       <hr/>
                       <img src={walking} className="picshoe"></img>
                       <p className="text-light textdescript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -109,7 +109,7 @@ function Homepages() {
                           when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
                   </div>
                   <div className="boxitem col-lg-2 col-xs-11 bg-dark text-light" data-aos="zoom-out-up">
-                      <h4 className="TopicSecond">Running</h4>
+                      <h4 className="TopicSecond text-light">Running</h4>
                       <hr/>
                       <img src={running} className="picshoe"></img>
                       <p className="text-light textdescript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -117,7 +117,7 @@ function Homepages() {
                           when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
                   </div>
                   <div className="boxitem col-lg-2 col-xs-11 bg-dark text-light" data-aos="zoom-out-up">
-                      <h4 className="TopicSecond">Training</h4>
+                      <h4 className="TopicSecond text-light">Training</h4>
                       <hr/>
                       <img src={training} className="picshoe"></img>
                       <p className="text-light textdescript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 

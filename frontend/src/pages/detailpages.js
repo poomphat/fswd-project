@@ -48,7 +48,7 @@ function Detailsproduct() {
                     variables: { Id: user?._id }
                 })
                 updateProductCartHandler(productCartData)
-            }}>Buy ss</button>
+            }}>Buy</button>
     }
   return (
    

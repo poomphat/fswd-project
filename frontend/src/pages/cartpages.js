@@ -67,7 +67,7 @@ function Cartpages() {
     const sumOfPromotionPrice = (array) =>{
         try{
             const sum = array.map(
-                o => Math.floor(o.forPromotion?.disProduct?.price/((100+o.forPromotion?.discountInPercent)/100))
+                o => Math.floor(o.forPromotion?.disProduct?.price/((100+o.forPromotion?.discountInPercent)/100))*o.quantity
                 ).reduce((a, c) => { return a + c });
             return sum
         }
@@ -79,7 +79,7 @@ function Cartpages() {
 
         try{
             const sum = array.map(
-                o => o.forProduct?.price
+                o => o.forProduct?.price*o.quantity
                 ).reduce((a, c) => { return a + c });
             return sum
         }
@@ -111,15 +111,22 @@ function Cartpages() {
             //prepare products data
             console.log(dataCart)
             tempProducts.map((item, i) => {
+                const forProduct = item?.forProduct
                 products.push({
                     quantity:item?.quantity,
-                    productId:item?.forProduct?._id,
-                    stock:item?.forProduct?.hasStock?.quantity
+                    productId:forProduct._id,
+                    stock:forProduct.hasStock?.quantity
                 })
             //prepare OrderProduct data
                 orderProduct.push({
                     quantity:item?.quantity,
-                    productId:item?.forProduct?._id,
+                    productId:forProduct._id,
+                    forProduct:{
+                        productName:forProduct.productName,
+                        productDesc:forProduct.productDesc,
+                        price:forProduct.price,
+                        imgUrl:forProduct.imgUrl
+                    }
                 })
 
             })
@@ -127,10 +134,29 @@ function Cartpages() {
             dataCart?.cart?.promotions?.map((item, i) => {
                 const proProduct = products?.find(o => (o.productId === item?.forPromotion?.disProduct?._id))
                 // prepare OrderPromotions data
+
+                const forPromotion = item?.forPromotion
+                console.log(forPromotion)
+                console.log(forPromotion?.disProduct)
+
+                const forPromotionObject = {
+                    promotionName:forPromotion?.promotionName,
+                    promotionDesc:forPromotion?.promotionDesc,
+                    discountInPercent:forPromotion?.discountInPercent,
+                    productId:forPromotion?.disProduct?._id,
+                    disProduct:{
+                        price:forPromotion?.disProduct?.price,
+                        productName:forPromotion?.disProduct?.productName,
+                        imgUrl:forPromotion?.disProduct?.imgUrl
+                    }
+                }
                 orderPromotion.push({
                     quantity:item?.quantity,
-                    promotionId:item?.forPromotion?._id,
+                    promotionId:forPromotion?._id,
+                    forPromotion:forPromotionObject
                 })
+                console.log('itaaaaem')
+                console.log(orderPromotion)
                 // matching promotion and product data
                 if(proProduct){
                     const productQuantity = products[products.indexOf(proProduct)].quantity
@@ -147,7 +173,8 @@ function Cartpages() {
                 userId:dataCart?.cart?.userId,
                 status:'WAITING',
                 products:orderProduct,
-                promotions:orderPromotion
+                promotions:orderPromotion,
+                totalPrice:sumOfPrice(dataCart?.cart?.products, dataCart?.cart?.promotions)
             }
             //create order
             createOrder({variables:{record:newOrderRecord}}).then( (result) =>{
@@ -196,7 +223,7 @@ function Cartpages() {
                     <div className="row"> 
                         <div className="col-lg-8 col-sm-12">
                         <div className="row flexbetween ml-2 mr-2">
-                                <h3 className="textbold">Product</h3> <h3 className="textbold">Amount : {dataCart?.cart?.products?.length}</h3>
+                                <h3 className="textbold">Item</h3> <h3 className="textbold">Amount : {dataCart?.cart?.products?.length+dataCart?.cart?.promotions?.length}</h3>
                         </div>
                         
                             {dataCart?.cart?.products?.map((item, i) => {
@@ -204,11 +231,9 @@ function Cartpages() {
                                 <CartProduct getCart={getCart} user={user} items={item} dataCart={dataCart}/>
                                     );
                                 })}  
-                        <div className="row flexbetween ml-2 mr-2">
-                                <h3 className="textbold mt-4 mb-4">Promotion</h3> <h3 className="textbold mt-4 mb-4">Amount : {dataCart?.cart?.promotions?.length}</h3>
-                        </div>
+        
                             {dataCart?.cart?.promotions?.map((item, i) => {
-                                return (<CartPromotion item={item}  getCart={getCart} user={user}/>)
+                                return (<CartPromotion item={item}  getCart={getCart} user={user}  dataCart={dataCart}/>)
                             })}
                        </div> 
                             <div className="col-lg-4 col-sm-12 mt-4">

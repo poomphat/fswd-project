@@ -41,7 +41,7 @@ const PromotionCard = (props) =>{
             <div className="col-lg-6 col-sm-12 ml-3 mr-3 row mainnaja">
                 <div className="headborder bg-dark text-light col-4">
                     <p className="mb-1 textsmall">promotion</p>
-                    <h6 className="boldhead text-light">Discount {item?.promotionName}</h6>
+                    <h6 className="boldhead text-light  ">Discount {item?.promotionName}</h6>
                 </div>
                 <div class="bg-light col-8 bodyborder">  
                 <h6 className="boldhead mb-1">{item?.disProduct?.productName}</h6>

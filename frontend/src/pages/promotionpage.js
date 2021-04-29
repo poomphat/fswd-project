@@ -19,14 +19,6 @@ function PromotionPage() {
             <div className="container mt-5">
                 <h2 className="Texttitle" data-aos="fade-right">Promotion</h2>
                 <hr data-aos="fade-right"></hr>
-                <form class="form-inline mb-3">
-                    <div class="input-group col-4 pr-0 pl-0 ml-3">
-                        <input type="text" class="form-control bg-light" placeholder="Search"/>
-                            <div class="input-group-append">
-                                <button class="btn btn-dark" type="button" id="button-addon2">Search</button>
-                            </div>
-                    </div>
-                </form>
                 <div className="row">
                 {data?.promotions?.map((item, i) => {
                     return (<PromotionCard data={item} index={i}/>);

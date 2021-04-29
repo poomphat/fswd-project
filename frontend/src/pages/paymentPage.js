@@ -41,7 +41,6 @@ function PaymentPage() {
     useMemo( () =>{
         setuserid(user?._id)
     },[user,userLoading])
-
   return (
     <div className="bg">
         <Navbar/>

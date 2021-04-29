@@ -14,10 +14,28 @@ const OrderSchema = new Schema({
     index: true,
     ref: 'User',
   },
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
   products:[
     {
         productId:{
             type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'products'
+        },
+        forProduct : {
+            productName: {
+              type: String, required: true, index: true, unique: false
+            },
+            productDesc:{
+                type: String, required: false
+            },
+            price:{
+                type: Number,  required: true
+            },
+            imgUrl:{
+                type: String,
+            }
         },
         quantity:{ type:Number , reqiured:true, default:1}
     }
@@ -26,6 +44,25 @@ const OrderSchema = new Schema({
     {
         promotionId:{
             type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'promtions'
+        },
+        forPromotion:{
+          promotionName: {
+              type: String, required: true, index: true, unique: false
+          },
+          promotionDesc:{
+              type: String, required: false
+          },
+          discountInPercent:{
+              type: Number
+          },
+          productId:{
+              type: mongoose.Schema.Types.ObjectId, reqiured: true, ref: 'products'
+          },
+          disProduct:{
+            productName:{type: String, required: true, index: true, unique: false},
+            price:{ type:Number, default:1},
+            imgUrl:{type: String}
+          }
         },
         quantity:{ type:Number , reqiured:true, default:1}
     }

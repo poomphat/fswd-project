@@ -7,14 +7,16 @@ import { FILTER_GENDER_PRODUCT } from '../graphql/filterGenderProductsMutation'
 import { COUNT_PRODUCT_MUTAION } from '../graphql/countProduct'
 import ShoesCard from '../component/ShoesCard'
 import Pagination from '@material-ui/lab/Pagination';
-
+import {COUNT_PRODUCT_FILTER_MUTAION} from '../graphql/countProductFilter'
 
 function Product() {
     const [page, setPage] = useState(1);
+    const [checkfilter, setCheckfilter] = useState('');
     const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION,{variables :{ limit: 6,skip: (page*6)-6 }})
     const [dataCount] = useMutation(COUNT_PRODUCT_MUTAION)
+    const [datafilterCount] = useMutation(COUNT_PRODUCT_FILTER_MUTAION)
     const [color,setcolor] = useState([1,0,0])
-    const [filterGenderProduct] = useMutation(FILTER_GENDER_PRODUCT)
+    const [filterGenderProduct] = useMutation(FILTER_GENDER_PRODUCT,{variables :{ limit: 6,skip: (page*6)-6 }})
     const [product, setProduct] = useState()
     const [countPages, setcountPages] = useState(0)
     const handleChange = async (event, value) => {
@@ -22,16 +24,22 @@ function Product() {
         console.log(countPages.countProduct)
       };
     useEffect(()=>{
-        allProduct()
+        if(checkfilter == ''){
+            allProduct()
+        }else{
+            filterProduct(checkfilter)
+        }
+            
     },[page])
 
     const setProductHandler = useCallback( async (data) =>{
         setProduct(data.findManyProduct);
       });
     const filterProduct = useCallback( async (gender) =>{
-        await filterGenderProduct({ variables: { genderType: gender }} ).then(result =>{
+        const {data : datafilter} = await datafilterCount({ variables: { genderType: gender }})
+        await filterGenderProduct({ variables: { genderType: gender }}).then(result =>{
             setProductHandler(result.data)
-            setcountPages(result.data.findManyProduct.length)
+            setcountPages(datafilter)
         })
       });
     const allProduct = useCallback( async () =>{
@@ -81,15 +89,15 @@ function Product() {
                 <div className="col-lg-3 col-sm-12">
                
                     <p  className={color[0] == 1 ? 'text-light filter' : 'text-dark filter'}
-                        onClick={()=>{allProduct();setcolor([1,0,0])}}
+                        onClick={()=>{allProduct();setcolor([1,0,0]);setCheckfilter('');setPage(1);}}
                         style={{backgroundColor:  color[0] == 1 ? '#292b2c' : 'rgba(0,0,0,0)'}}>All</p>
 
                     <p  className={color[1] == 1 ? 'text-light filter' : 'text-dark filter'}
-                        onClick={()=>{filterProduct('man');setcolor([0,1,0])}} 
+                        onClick={()=>{filterProduct('man');setcolor([0,1,0]);setCheckfilter('man');setPage(1);}} 
                         style={{backgroundColor:  color[1] == 1 ? '#292b2c' : 'rgba(0,0,0,0)'}}>Men</p>
 
                     <p  className={color[2] == 1 ? 'text-light filter' : 'text-dark filter'} 
-                        onClick={()=>{filterProduct('woman');setcolor([0,0,1])}} 
+                        onClick={()=>{filterProduct('woman');setcolor([0,0,1]);setCheckfilter('woman');setPage(1);}} 
                         style={{backgroundColor:  color[2] == 1 ? '#292b2c' : 'rgba(0,0,0,0)'}}>Women</p>
                 </div>
                 <div className="row col-lg-9 col-xs-12 mb-5">

@@ -8,12 +8,30 @@ mutation($record: CreateOneOrderInput!) {
     products{
       productId
       quantity
+      forProduct{
+        productName
+        productDesc
+        price
+        imgUrl
+      }
     }
     promotions{
       promotionId
       quantity
+      forPromotion{
+        promotionName
+        promotionDesc
+        discountInPercent
+        productId
+        disProduct{
+          productName
+          price
+          imgUrl
+        }
+      }
     }
     status
+    totalPrice
   }
  }
 }

@@ -16,6 +16,8 @@ query ($Id: String!) {
         productDesc
         price
         imgUrl
+        catagory
+        genderType
         hasStock{
           quantity
         }

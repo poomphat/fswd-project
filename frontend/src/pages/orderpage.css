@@ -1,0 +1,39 @@
+.boxorder{
+    transition: 0.25s;
+}
+.boxorder:hover{
+    transform: scale(1.01,1.01  );
+}
+.boxproduct{
+    border-radius: 7px;
+    background-position: center;
+    background-size: cover;
+    backdrop-filter: blur(2em);
+}
+.boxstatus{
+    position: absolute;
+    width: 15px;
+    height: 100%;
+    top:0;
+    left:0;
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+    z-index: 2;
+}
+.imgpro{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+}
+.filterbg{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    padding: 15px;
+    border-radius: 7px;
+}
+.boxpromotion{
+    padding: 15px;
+    border-radius: 7px;
+}
