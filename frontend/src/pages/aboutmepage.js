@@ -7,6 +7,7 @@ import { useSession } from '../context/Sessioncontext'
 function AboutMe() {
    
     const { loading, user, logout: handleLogout } = useSession()
+    console.log(user)
   return (
    
     <div className="bg">

@@ -10,6 +10,9 @@ import AboutMe from '../src/pages/aboutmepage'
 import Order from '../src/pages/orderpage'
 import AddOrder from '../src/pages/Addproduct'
 import PaymentPage from '../src/pages/paymentPage'
+import Dashboard from '../src/pages/dashboardpage'
+import CheckOutPage from '../src/pages/checkOutPage'
+import OrderDetails from '../src/pages/orderdetail'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'antd/dist/antd.css';
@@ -61,6 +64,9 @@ function App() {
             <PrivateRoute exact path='/customer/order'><Order/></PrivateRoute>
             <PrivateRoute exact path='/addproduct'><AddOrder/></PrivateRoute>
             <PrivateRoute exact path='/payment'><PaymentPage/></PrivateRoute>
+            <PrivateRoute exact path='/dashboard'><Dashboard/></PrivateRoute>
+            <PrivateRoute exact path='/checkout'><CheckOutPage/></PrivateRoute>
+            <PrivateRoute exact path='/customer/order/:string'><OrderDetails/></PrivateRoute>
             <Route exact path='/promotion'>
                 <>
                 <Promotion/>

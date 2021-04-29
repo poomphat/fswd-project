@@ -1,6 +1,6 @@
 import './addproduct.css';
 import {useState, useEffect, useCallback} from 'react'
-import Navbar from '../component/Navbar'
+import Admin from '../component/sidebar'
 import { gql, useMutation,useQuery } from '@apollo/client'
 import { useSession } from '../context/Sessioncontext'
 import { CREATE_PRODUCT_IMG } from '../graphql/createproductwithimg'
@@ -70,7 +70,7 @@ function Addorder() {
     return (
   
     <div className="bg">
-        <Navbar/>
+        <Admin/>
           <div className="container">
           <h2 className="Texttitle mt-5" data-aos="fade-right">Add Product</h2>
           <hr/>

@@ -64,7 +64,8 @@ const OrderSchema = new Schema({
             imgUrl:{type: String}
           }
         },
-        quantity:{ type:Number , reqiured:true, default:1}
+        quantity:{ type:Number , reqiured:true, default:1},
+        timestamp: { type: Date, default: Date.now },
     }
   ],
   status: { type: String,enum: Object.keys(enumStatusType),default: 'Waiting',required: true,}

@@ -4,19 +4,41 @@
 
 
 
-import { CREATE_PROMOTION_CART_MUTATION } from '../graphql/createPromotionCartMutation'
-import { CREATE_PRODUCT_CART_MUTATION } from '../graphql/createProductCartMutation'
-import { useCallback, useEffect } from 'react'
-import { gql, useMutation, useQuery, useLazyQuery  } from '@apollo/client'
-import { notification, Space } from 'antd';
-import { DELETE_CART_PRODUCT_ONE } from '../graphql/deleteCartProductOne'
+import { useCallback, useEffect, useState, useMemo } from 'react'
 import notfound from '../asset/notfound.jpg'
 import { Accordion, Button } from "react-bootstrap";
 import { useHistory } from 'react-router-dom'
+import { Radio, Input, Space, notification } from 'antd';
+import { useSession } from '../context/Sessioncontext'
+import { useLazyQuery  } from '@apollo/client'
+import { FILTER_CUSTOMER } from '../graphql/findCustomerQuery'
 
-const OrderCard = (props) => {
+const OrderCheckoutCard = (props) => {
     const item  = props.item
+    const [checkedValue, setCheckedValue] = useState(1)
+    const [userid, setuserid] = useState('')
+    const { user , loading:userLoading } = useSession()
+    const [filterCustomer, {loading, data:customerData}] = useLazyQuery(FILTER_CUSTOMER, { fetchPolicy: 'network-only' })
+
     const history = useHistory()
+    const goToPayment = useCallback(
+        (order) => {
+          history.push({
+              pathname: '/payment',
+              order : order
+          })
+        },
+        [history],
+      )
+
+    useMemo( () =>{
+        setuserid(user?._id)
+        filterCustomer({variables: { userId: user?._id }})
+    },[user,userLoading])
+
+    const setCheckedValueHandler = (e) =>{
+        setCheckedValue(e.target.value)
+    }
     const goToCheckOut = useCallback(
         (order) => {
           history.push({
@@ -26,16 +48,7 @@ const OrderCard = (props) => {
         },
         [history],
       )
-      const goTodetail = useCallback(
-        (order) => {
-          history.push({
-              pathname: '/customer/order/'+item?._id,
-              order : order
-          })
-        },
-        [history],
-      )
-    console.log(props.disablePay)
+    const customerAddress = customerData?.customer?.address
     return(
         <>
         <div class="col-lg-12 col-sm-12 row cartlist boxorder bg-light ml-0 pl-3 mb-4"> 
@@ -43,10 +56,7 @@ const OrderCard = (props) => {
             <div className="col-12 pr-0"> 
             <Accordion defaultActiveKey="0">
             <div className="flexbetween row ml-1 mr-1">
-            <h4 class="card-title textbold mt-2">Order : {item?._id}</h4> 
-                <div>
-                    {(item?.status === "WAITING" && !props.disablePay)? <button className="btn btn-light" onClick={() => goToCheckOut(item)}>Pay</button> : <></> }
-                </div>
+            <h4 class="card-title textbold mt-2">Order : {item?._id}</h4> {(item?.status === "WAITING" && !props.disablePay)? <button className="btn btn-light" onClick={() => goToCheckOut(item)}>Pay</button> : <></> }
             </div>
             <p>Status : {item?.status}</p>
             <hr/>            
@@ -80,7 +90,30 @@ const OrderCard = (props) => {
                 </Accordion.Collapse>
                   </Accordion>
             <hr/>
-            <h5>Shipping</h5>
+            <h5> Shipping </h5>
+            <Radio.Group onChange={setCheckedValueHandler} value={checkedValue}>
+                <Space direction="vertical">
+                    <Radio value={1}>Kerry Express</Radio>
+                    <Radio value={2}>ThailandPost</Radio>
+                    <Radio value={3}>Flash Express</Radio>
+                </Space>
+            </Radio.Group>
+            <hr/>
+            <h5> Address </h5>
+            {!loading
+                ?
+                <>
+                    <p>{customerAddress?.address+" "+customerAddress?.subDistrict
+                    +" "+customerAddress?.district+" "+customerAddress?.province
+                    +", "+customerAddress?.country+" "+customerAddress?.zipcode}
+                    <a href='' className='ml-2'>(edit)</a>
+                    </p>
+                </>
+                :
+                <p/>
+            }
+            <hr/>
+            <button className='btn btn-primary' onClick={() => goToPayment(item)}> Pay </button>
             </div>
             
            
@@ -90,4 +123,4 @@ const OrderCard = (props) => {
     )
 }
 
-export default OrderCard;
+export default OrderCheckoutCard;

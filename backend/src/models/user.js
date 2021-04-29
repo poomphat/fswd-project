@@ -29,6 +29,7 @@ const CustomerSchema = new Schema({
     country: { type: String, default: null },
     zipcode: { type: String, default: null },
     tel: { type: String, default: null },
+    province: { type: String, default: null },
   },
 })
 

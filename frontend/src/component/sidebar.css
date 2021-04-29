@@ -1,0 +1,39 @@
+.sidenav {
+    height: 100%;
+    width: 240px;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    overflow-x: hidden;
+    padding-top: 30px;
+  }
+  .bgglass{
+    background: rgba( 255, 255, 255, 0.95 );
+    
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+  .sidenav a {
+    padding: 15px 8px 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.25s;
+  }
+  
+  .sidenav a:hover {
+    background-color:#bdbdbd;
+    text-decoration: none;
+  }
+  
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+.titlenav{
+    padding-left: 30px;
+}
