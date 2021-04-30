@@ -6,6 +6,8 @@ import OrderCheckoutCard from '../component/orderCheckoutCard'
 import { useHistory } from 'react-router-dom'
 import { useLocation } from "react-router-dom";
 import { FILTER_CUSTOMER } from '../graphql/findCustomerQuery'
+import { gql, useMutation } from '@apollo/client'
+import { notification, Button, Space } from 'antd';
 
 const CheckOutPage = () => {
     const location = useLocation()

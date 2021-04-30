@@ -65,9 +65,9 @@ const OrderSchema = new Schema({
           }
         },
         quantity:{ type:Number , reqiured:true, default:1},
-        timestamp: { type: Date, default: Date.now },
     }
   ],
+  timestamp: { type: Date, default: Date.now, index: true },
   status: { type: String,enum: Object.keys(enumStatusType),default: 'Waiting',required: true,}
 })
 

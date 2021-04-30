@@ -37,7 +37,7 @@ function Cartpages() {
     const goToCheckOut = useCallback(
         (order) => {
           history.push({
-              pathname: '/payment',
+              pathname: '/checkout',
               order : order
           })
         },
@@ -191,8 +191,7 @@ function Cartpages() {
                 //wipe cart
                 wipeProductCart({variables:{cartId:dataCart?.cart?._id}})
                 wipePromotionCart({variables:{cartId:dataCart?.cart?._id}})
-
-                goToCheckOut(result.data?.createOrder)
+                goToCheckOut(result.data?.createOrder?.record)
 
             })
         

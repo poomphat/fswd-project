@@ -14,13 +14,13 @@ import training from '../asset/training.png'
 import notfound from '../asset/notfound.jpg'
 import { gql, useMutation,useQuery } from '@apollo/client'
 import { FIND_MANY_MUTATION } from '../graphql/findProductMutation'
-import { FIND_ALL_PROMOTIONS } from '../graphql/findPromotionQuery'
+import { FIND_ALL_PROMOTIONS_HOMEPAGE } from '../graphql/findPromotionHomepage'
 import PromotionCard from '../component/promotionCard'
 
 function Homepages() {
     const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION,{variables :{ limit: 4,skip: 0 }})
     const [product, setProduct] = useState()
-    const { load, data } = useQuery(FIND_ALL_PROMOTIONS)
+    const { load, data } = useQuery(FIND_ALL_PROMOTIONS_HOMEPAGE)
     const [promotions, setPromotions] = useState()
 
     const setProductHandler = useCallback( async (data) =>{
@@ -93,7 +93,10 @@ function Homepages() {
               <div className="productlist row pb-4">
 
               {data?.promotions?.map((item, i) => {
-                    return (<PromotionCard data={item} index={i}/>);
+                    return (
+                    <div className="col-6">
+                    <PromotionCard data={item} index={i}/>
+                    </div>);
                     })}
 
           </div>

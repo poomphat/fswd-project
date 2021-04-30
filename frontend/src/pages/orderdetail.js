@@ -1,26 +1,19 @@
 import './detailpages.css';
-import {useState, useEffect, useCallback, useMemo} from 'react'
 import Navbar from '../component/Navbar'
-import notfound from '../asset/notfound.jpg'
-import { gql, useMutation,useQuery, useLazyQuery } from '@apollo/client'
-import { FIND_PRODUCT_QUERY } from '../graphql/findProductQuery'
+import {useQuery} from '@apollo/client'
 import OrderCard from '../component/OrderCard'
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
     useParams
   } from "react-router-dom";
 
 import { FIND_ORDER_BY_ID } from '../graphql/findOrderById'
-import { updateProductCartHandler } from '../component/updateCartHandler'
-import { Spin, Alert } from 'antd';
-import { useSession } from '../context/Sessioncontext'
+
 
 
 function Detailsproduct() {
     const name  = useParams()
-    const {data:items, loading:loading} = useQuery(FIND_ORDER_BY_ID, {variables: { _id: name.string }})
+    const {data:items} = useQuery(FIND_ORDER_BY_ID, {variables: { _id: name.string }})
     const item = items?.orders[0]
     console.log(item)
   return (

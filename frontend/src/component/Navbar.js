@@ -7,16 +7,23 @@ import {
 } from "react-router-dom";
 import { ME_QUERY } from '../graphql/meQuery'
 import { useSession } from '../context/Sessioncontext'
+import { useHistory } from 'react-router-dom'
+import { useCallback } from 'react'
 function Navbar() {
+  const history = useHistory()
   const { loading, user, logout: handleLogout } = useSession()
+  const goToOrder = useCallback(
+    () => {
+        history.push('/customer/order')
+    },
+    [history],
+  )
   const Loginout = () => {
   
     if (user){
       return(
         <div>
-        <Link to="/customer/order">
-          <button class="btn btn-light ml-2" type="button"><a className="loginbutton">Order</a></button>
-        </Link>
+        <button class="btn btn-light ml-2" type="button" id="button-addon2" onClick={() => goToOrder()}><a className="loginbutton"> Order </a></button> 
         <button class="btn btn-danger ml-2" type="button" onClick={handleLogout}>Log out</button>
         </div>
       )
@@ -52,9 +59,12 @@ function Navbar() {
             </Link>
             </li>
             <li class="nav-item">
-            <Link to="/addproduct">
-              <a class="nav-link Navchild">Add Product</a>
+            <Link to="/admin/promotion/create">
+              <a class="nav-link Navchild">Add Promotion</a>
             </Link>
+            </li>
+            <li class="nav-item">
+            
             </li>
           </ul>
           <Link to="/aboutme">

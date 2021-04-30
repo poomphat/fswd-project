@@ -1,19 +1,19 @@
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
 import { useSession } from '../context/Sessioncontext'
 
-const PrivateRoute = (props) => {
+const AdminRoute = (props) => {
   const { children, ...rest } = props
   const { user } = useSession()
+  console.log(user?.role)
   return (
     <Route
       {...rest}
       render={({ location }) => {
         if (!user) {
-          {console.log(user)}
           return (
-            <Redirect to={{ pathname: '/login', state: { from: location } }} />
+            <Redirect to={{ pathname: '/', state: { from: location } }} />
           )
         }
         return children
@@ -22,4 +22,4 @@ const PrivateRoute = (props) => {
   )
 }
 
-export default PrivateRoute
+export default AdminRoute

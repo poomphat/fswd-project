@@ -8,7 +8,6 @@
     border-radius: 7px;
     background-position: center;
     background-size: cover;
-    backdrop-filter: blur(2em);
 }
 .boxstatus{
     position: absolute;
@@ -32,7 +31,10 @@
     background-color: rgba(0,0,0,0.6);
     padding: 15px;
     border-radius: 7px;
+    transition: all  0.3s ease-in-out;
+    box-shadow: "0px 0px 20px 0px black"
 }
+
 .boxpromotion{
     padding: 15px;
     border-radius: 7px;

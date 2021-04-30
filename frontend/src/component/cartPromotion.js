@@ -46,7 +46,7 @@ const CartPromotion = (props) => {
 
                 <div className="flexbe row pr-3 pl-3"> 
                     <h5 className="boldhead mb-0 totaltext mt-2">Quantity : {item.quantity}</h5>
-                    <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.forPromotion?.disProduct?.price/((100+item?.forPromotion?.discountInPercent)/100))} USD</h5>
+                    <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.forPromotion?.disProduct?.price*((100-item?.forPromotion?.discountInPercent)/100))} USD</h5>
                 </div>
                 
             </div>

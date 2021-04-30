@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const FIND_ALL_PROMOTIONS = gql`
+export const FIND_ALL_PROMOTIONS_HOMEPAGE = gql`
 query{
-    promotions{
+    promotions(limit :2 ,sort: _ID_DESC){
       promotionName
       promotionDesc
       discountInPercent

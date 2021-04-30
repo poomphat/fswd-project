@@ -10,7 +10,7 @@ import { Accordion, Button } from "react-bootstrap";
 import { useHistory } from 'react-router-dom'
 import { Radio, Input, Space, notification } from 'antd';
 import { useSession } from '../context/Sessioncontext'
-import { useLazyQuery  } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { FILTER_CUSTOMER } from '../graphql/findCustomerQuery'
 
 const OrderCheckoutCard = (props) => {
@@ -56,7 +56,16 @@ const OrderCheckoutCard = (props) => {
             <div className="col-12 pr-0"> 
             <Accordion defaultActiveKey="0">
             <div className="flexbetween row ml-1 mr-1">
-            <h4 class="card-title textbold mt-2">Order : {item?._id}</h4> {(item?.status === "WAITING" && !props.disablePay)? <button className="btn btn-light" onClick={() => goToCheckOut(item)}>Pay</button> : <></> }
+            <h4 class="card-title textbold mt-2">Order : {item?._id}</h4> 
+                {(item?.status === "WAITING" && !props.disablePay)
+                    ? 
+                    <>
+                        <button className="btn btn-light" onClick={() => goToCheckOut(item)}>Pay</button> 
+                        <button className="btn btn-danger" onClick={() => goToCheckOut(item)}>Cancel</button> 
+                    </> 
+                    : 
+                    <></> 
+                }
             </div>
             <p>Status : {item?.status}</p>
             <hr/>            

@@ -24,6 +24,7 @@ export const SessionProvider = (props) => {
       if (res?.data?.login?.token) {
         setCookie('token', res?.data?.login?.token, { maxAge: 86400 })
         setUser(res?.data?.login?.user)
+
         if (res?.data?.login?.requiredNewPassword) {
           alert('Please change your password')
           history.push('/me')

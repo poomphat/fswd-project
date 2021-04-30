@@ -4,6 +4,7 @@ import { useSession } from '../context/Sessioncontext'
 import { useMutation, useLazyQuery  } from '@apollo/client'
 import {useCallback, useEffect,useState,useMemo} from 'react'
 import { updatePromotionCartHandler } from './updateCartHandler'
+import { Link } from 'react-router-dom'
 const PromotionCard = (props) =>{
     
     const item = props?.data
@@ -38,18 +39,28 @@ const PromotionCard = (props) =>{
         }
     }
         return (
-            <div className="col-lg-6 col-sm-12 ml-3 mr-3 row mainnaja">
-                <div className="headborder bg-dark text-light col-4">
-                    <p className="mb-1 textsmall">promotion</p>
-                    <h6 className="boldhead text-light  ">Discount {item?.promotionName}</h6>
+            <div className="col-lg-12 ml-3 mr-3 row mainnaja">
+                <div className="headborder bg-dark text-light col-4 pl-0 pr-0 pt-0 pb-0"  style={{backgroundImage: "url(" + item?.disProduct?.imgUrl + ")"}}>
+                    <div className="filterbgpromo">
+                        <p className="mb-1 textsmall">promotion</p>
+                       
+                            <h6 className="boldhead text-light  ">{item?.promotionName}</h6>
+                            <h6 className="boldhead mb-1 text-success">OFF {item?.discountInPercent}%</h6>
+                    </div>
                 </div>
                 <div class="bg-light col-8 bodyborder">  
-                <h6 className="boldhead mb-1">{item?.disProduct?.productName}</h6>
+                <div className="row flexbetween ml-2 mr-2">
+                    <h6 className="boldhead mb-1">{item?.disProduct?.productName}</h6>
+                    <Link to={"/admin/editpromotion/"+item?._id}>
+                        <button class="btn btn-light ml-2">Edit</button>
+                    </Link>
+                </div>
+                
                 <hr/>
                 <h8 className="mb-1">normal price : {item?.disProduct?.price} USD</h8>
                
                     <div className="flexbe row pr-3 pl-3"> 
-                        <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.disProduct?.price/((100+item?.discountInPercent)/100))} USD</h5>
+                        <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.disProduct?.price*((100-item?.discountInPercent)/100))} USD</h5>
                         <Addbutton/>
                     </div>
                 </div>

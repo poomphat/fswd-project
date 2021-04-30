@@ -5,11 +5,10 @@ import { useSession } from '../context/Sessioncontext'
 import { CREATE_CUSTOMER_MUTATION } from '../graphql/createCustomerMutation'
 import { CREATE_CART_MUTATION } from '../graphql/createCartMutation'
 
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 
 function Register() {
   const history = useHistory()
-  const { login } = useSession()
   const [username, setUsername] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')

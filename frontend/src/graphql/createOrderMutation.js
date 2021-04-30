@@ -4,6 +4,7 @@ export const CREATE_ORDER_MUTATION = gql`
 mutation($record: CreateOneOrderInput!) {
   createOrder(record:$record){
    record{
+    _id
     userId
     products{
       productId

@@ -12,6 +12,7 @@ query ($id: MongoID!) {
     productDesc
     price
     catagory
+    genderType
     imgUrl
     hasStock{
       quantity

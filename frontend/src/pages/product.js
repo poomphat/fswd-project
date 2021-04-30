@@ -1,7 +1,7 @@
 import './product.css';
 import {useState, useEffect, useCallback} from 'react'
 import Navbar from '../component/Navbar'
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { FIND_MANY_MUTATION } from '../graphql/findProductMutation'
 import { FILTER_GENDER_PRODUCT } from '../graphql/filterGenderProductsMutation'
 import { COUNT_PRODUCT_MUTAION } from '../graphql/countProduct'

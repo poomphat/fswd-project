@@ -6,6 +6,7 @@ query {
     _id
     name
     username
+    role
   }
 }
 `

@@ -1,17 +1,12 @@
 import './promotionpage.css';
-import {useState, useEffect, useCallback} from 'react'
+import {useState} from 'react'
 import Navbar from '../component/Navbar'
-import shoe from '../asset/shoe/shoe.png'
-import walking from '../asset/walking.png'
-import running from '../asset/running.png'
-import training from '../asset/training.png'
-import { gql, useQuery } from '@apollo/client'
+import {useQuery } from '@apollo/client'
 import { FIND_ALL_PROMOTIONS } from '../graphql/findPromotionQuery'
 import PromotionCard from '../component/promotionCard'
 
 function PromotionPage() {
-    const { loading, data } = useQuery(FIND_ALL_PROMOTIONS)
-    const [promotions, setPromotions] = useState()
+    const { data } = useQuery(FIND_ALL_PROMOTIONS, { fetchPolicy: 'network-only' },)
   return (
    
     <div className="bg">
@@ -21,7 +16,10 @@ function PromotionPage() {
                 <hr data-aos="fade-right"></hr>
                 <div className="row">
                 {data?.promotions?.map((item, i) => {
-                    return (<PromotionCard data={item} index={i}/>);
+                    return (
+                      <div className="col-6 mt-4">
+                          <PromotionCard data={item} index={i}/>
+                      </div>);
                     })}
                 </div>
             </div>  

@@ -7,12 +7,16 @@ import Productdetail from '../src/pages/detailpages'
 import Promotion from '../src/pages/promotionpage'
 import Register from '../src/pages/registerPage'
 import AboutMe from '../src/pages/aboutmepage'
-import Order from '../src/pages/orderpage'
-import AddOrder from '../src/pages/Addproduct'
+import OrderPage from '../src/pages/orderpage'
+import AddProduct from '../src/pages/Addproduct'
 import PaymentPage from '../src/pages/paymentPage'
 import Dashboard from '../src/pages/dashboardpage'
 import CheckOutPage from '../src/pages/checkOutPage'
 import OrderDetails from '../src/pages/orderdetail'
+import AddPromotion from '../src/pages/addpromotion'
+import EditPromotion from '../src/pages/editPromotion'  
+import EditProduct from '../src/pages/editproduct'
+import NotFound from '../src/pages/notfound'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'antd/dist/antd.css';
@@ -21,11 +25,18 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link
+  Link,Redirect
 } from "react-router-dom";
 import PrivateRoute from '../src/route/PrivateRoute'
+import AdminRoute from '../src/route/AdminRoute'
+import { useSession } from './context/Sessioncontext'
 AOS.init();
 function App() {
+    const { user , loading:userLoading} = useSession()
+    console.log(user)
+    const adminCheck = (role) =>{
+        return role === 'Admin'? true : <Redirect to={{pathname: '/'}} />
+    }
   return (
 
     <>
@@ -39,44 +50,37 @@ function App() {
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></link>
         <Switch>
-            <Route exact path='/'>
-                <>
-                <Homepages/>
-                </>
-            </Route>
-            <Route exact path='/login'>
-                <>
-                <Login/>
-                </>
-            </Route>
-            <Route exact path='/Register'>
-                <>
-                <Register/>
-                </>
-            </Route>
-            <Route exact path='/product'>
-                <>
-                <Product/>
-                </>
-            </Route>
+            <Route exact path='/'><><Homepages/></></Route>
+            <Route exact path='/login'><><Login/></></Route>
+            <Route exact path='/Register'><><Register/></></Route>
+            <Route exact path='/product'><><Product/></></Route>
+            <Route exact path='/promotion'><><Promotion/></></Route>
+            <Route exact path='/product/:string'><><Productdetail/></></Route>
             <PrivateRoute exact path='/aboutme'><AboutMe/></PrivateRoute>
             <PrivateRoute exact path='/cart'><Cart/></PrivateRoute>
-            <PrivateRoute exact path='/customer/order'><Order/></PrivateRoute>
-            <PrivateRoute exact path='/addproduct'><AddOrder/></PrivateRoute>
+            <PrivateRoute exact path='/customer/order'><OrderPage/></PrivateRoute>
             <PrivateRoute exact path='/payment'><PaymentPage/></PrivateRoute>
             <PrivateRoute exact path='/dashboard'><Dashboard/></PrivateRoute>
             <PrivateRoute exact path='/checkout'><CheckOutPage/></PrivateRoute>
             <PrivateRoute exact path='/customer/order/:string'><OrderDetails/></PrivateRoute>
-            <Route exact path='/promotion'>
-                <>
-                <Promotion/>
-                </>
-            </Route>
-            <Route exact path='/productdetail/:string'>
-                <>
-                <Productdetail/>
-                </>
-            </Route>
+            <AdminRoute exact path='/admin/product/create'>
+                {adminCheck(user?.role)}
+                <AddProduct/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/promotion/create'>
+                {adminCheck(user?.role)}
+                <AddPromotion/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/product/:string'>
+                {adminCheck(user?.role)}
+                <EditProduct/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/promotion/:string'>
+                {adminCheck(user?.role)}
+                <EditPromotion/>
+            </AdminRoute>
+           <Route path="*"><NotFound /></Route>
+            
         </Switch>  
 
     </>

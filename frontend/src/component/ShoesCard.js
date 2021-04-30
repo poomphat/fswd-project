@@ -69,6 +69,11 @@ const ShoesCard = (props) =>{
                                     <div className="col-6">
                                         <Addbutton/>
                                     </div>
+                                    <div className="col-12 my-2">
+                                    <Link to={"/admin/product/"+ item?._id}>
+                                        <button class="btn btn-dark col">Edit</button>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div> 
