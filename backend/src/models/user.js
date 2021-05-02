@@ -23,13 +23,13 @@ UserSchema.plugin(bcrypt)
 const AdminSchema = new Schema({})
 const CustomerSchema = new Schema({
   address: {
-    address: { type: String, default: null },
-    subDistrict: { type: String, default: null },
-    district: { type: String, default: null },
-    country: { type: String, default: null },
-    zipcode: { type: String, default: null },
-    tel: { type: String, default: null },
-    province: { type: String, default: null },
+    address: { type: String, default: "" },
+    subDistrict: { type: String, default: "" },
+    district: { type: String, default: "" },
+    country: { type: String, default: "" },
+    zipcode: { type: String, default: "" },
+    tel: { type: String, default: "" },
+    province: { type: String, default: "" },
   },
 })
 

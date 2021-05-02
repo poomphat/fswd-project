@@ -45,7 +45,7 @@ const server = new ApolloServer({
 const path = '/graphql'
 app.use(cookieParser())
 app.use(express.json())
-app.use(cors({ origin: process.env.ORIGIN ?? 'http://localhost:3000', credentials: true }))
+app.use(cors({ origin: process.env.ORIGIN ?? 'https://608effcddf726e2c08d44231--distracted-meitner-365c49.netlify.app/', credentials: true }))
 app.use('/public', express.static(`${__dirname}/../public`))
 app.use(express.static(`${__dirname}/../public`))
 app.use(express.urlencoded({ extended: false }))
@@ -79,7 +79,7 @@ app.use(
     })
   },
 )
-server.applyMiddleware({ app, path, cors: { origin: process.env.ORIGIN ?? 'http://localhost:3000', credentials: true }})
+server.applyMiddleware({ app, path, cors: { origin: process.env.ORIGIN ?? 'https://608effcddf726e2c08d44231--distracted-meitner-365c49.netlify.app/', credentials: true }})
 
 const port = process.env.PORT ?? 3001
 app.listen({ port }, () => {
