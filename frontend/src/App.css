@@ -39,6 +39,9 @@
 body{
   font-family: 'Prompt' !important;
   background-color: rgb(231, 231, 231) !important;
+  background-image: url('./asset/bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 

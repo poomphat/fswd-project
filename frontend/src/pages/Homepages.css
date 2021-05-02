@@ -10,9 +10,7 @@
     top:0;
 }
 .bg{
-    background-image: url('../asset/bg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+    
     height: 110vh;
 }
 .picshoe{
@@ -81,13 +79,14 @@
     font-weight: 400;
 }
 .productlist{
-    overflow-x: scroll;
-    overflow-y: hidden;
-    flex-direction: row !important;
-    display: flex;
+    overflow-x: auto;
+    display: inline-block;
+    white-space: nowrap;
 }
 .carditem{
-    width: 18rem;
+    display: inline-block;
+    float: none;
+    width: 300px !important;
     border-radius: 9px !important;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }

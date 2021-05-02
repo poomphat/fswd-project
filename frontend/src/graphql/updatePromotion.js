@@ -11,7 +11,7 @@ mutation updatePromoitionById(
       record:$record
     ){
       record{
-        promotionId
+        _id
       }
     }
   

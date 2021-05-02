@@ -13,12 +13,12 @@ import running from '../asset/running.png'
 import training from '../asset/training.png'
 import notfound from '../asset/notfound.jpg'
 import { gql, useMutation,useQuery } from '@apollo/client'
-import { FIND_MANY_MUTATION } from '../graphql/findProductMutation'
+import { FIND_MANY_MUTATION_HOMEPAGE } from '../graphql/findproductHomepage'
 import { FIND_ALL_PROMOTIONS_HOMEPAGE } from '../graphql/findPromotionHomepage'
 import PromotionCard from '../component/promotionCard'
 
 function Homepages() {
-    const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION,{variables :{ limit: 4,skip: 0 }})
+    const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION_HOMEPAGE,{variables :{ limit: 4,skip: 0 }})
     const [product, setProduct] = useState()
     const { load, data } = useQuery(FIND_ALL_PROMOTIONS_HOMEPAGE)
     const [promotions, setPromotions] = useState()
@@ -60,12 +60,12 @@ function Homepages() {
           <div className="container">
               <h2 className="textbold">Latest product</h2>
               <hr/>
-              
-              <div className="productlist pb-4">
+              <div>
+              <div className="productlist pb-4 row">
 
               {product?.findManyProduct?.map((item, i) => {
                     return (
-                        <div class="card text-dark carditem bg-light ml-3" data-aos="zoom-in">
+                        <div class="card text-dark carditem bg-light ml-3" data-aos="zoom-in" style={{width: "200px"}}>
                             <img class="card-img-top imgs" src={(item?.imgUrl==null)?notfound:item?.imgUrl} alt="Card image cap"/>
                             <div class="card-body">
                                 <h5 class="card-title TopicSecond">{item?.productName}</h5>
@@ -84,7 +84,8 @@ function Homepages() {
                     );
                     })}
 
-          </div>
+                </div>
+            </div>
           </div>
           <div className="container mt-4">
               <h2 className="textbold">Latest promotion</h2>
@@ -94,9 +95,31 @@ function Homepages() {
 
               {data?.promotions?.map((item, i) => {
                     return (
-                    <div className="col-6">
-                    <PromotionCard data={item} index={i}/>
-                    </div>);
+                     
+                        <div className="productlist">
+                        <div className="col-lg-12 mr-0 pr-0 row mainnaja">
+                                <div className="headborder bg-dark text-light col-4 pl-0 pr-0 pt-0 pb-0"  style={{backgroundImage: "url(" + item?.disProduct?.imgUrl + ")"}}>
+                                    <div className="filterbgpromo">
+                                        <p className="mb-1 textsmall">promotion</p>
+                                    
+                                            <h6 className="boldhead text-light  ">{item?.promotionName}</h6>
+                                            <h6 className="boldhead mb-1 text-success">OFF {item?.discountInPercent}%</h6>
+                                    </div>
+                                </div>
+                                <div class="bg-light col-8 bodyborder">  
+                                <div className="row flexbetween ml-2 mr-2">
+                                    <h6 className="boldhead mb-1">{item?.disProduct?.productName}</h6>
+                                </div>
+                                
+                                <hr/>
+                                <h8 className="mb-1">normal price : {item?.disProduct?.price} USD</h8>
+                            
+                                    <div className="flexbe row pr-3 pl-3"> 
+                                        <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.disProduct?.price*((100-item?.discountInPercent)/100))} USD</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>);
                     })}
 
           </div>

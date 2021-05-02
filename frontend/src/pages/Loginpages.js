@@ -3,7 +3,13 @@ import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSession } from '../context/Sessioncontext'
 import { gql, useMutation } from '@apollo/client'
+import { notification } from 'antd';
 
+const failedNotification = {
+  message: "Login fail",
+  description: "please check your username and password",
+  duration: 2.5
+}
 function Loginpages() {
   const history = useHistory()
   const { login } = useSession()
@@ -32,6 +38,7 @@ function Loginpages() {
       }
       catch(error){
         console.log(error)
+        notification.error(failedNotification);
       }
     },
     [login, password, username],

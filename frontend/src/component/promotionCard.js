@@ -39,7 +39,7 @@ const PromotionCard = (props) =>{
         }
     }
         return (
-            <div className="col-lg-12 ml-3 mr-3 row mainnaja">
+            <div className="col-lg-12 mr-0 pr-0 row mainnaja">
                 <div className="headborder bg-dark text-light col-4 pl-0 pr-0 pt-0 pb-0"  style={{backgroundImage: "url(" + item?.disProduct?.imgUrl + ")"}}>
                     <div className="filterbgpromo">
                         <p className="mb-1 textsmall">promotion</p>
@@ -51,9 +51,12 @@ const PromotionCard = (props) =>{
                 <div class="bg-light col-8 bodyborder">  
                 <div className="row flexbetween ml-2 mr-2">
                     <h6 className="boldhead mb-1">{item?.disProduct?.productName}</h6>
-                    <Link to={"/admin/editpromotion/"+item?._id}>
+                    {user?.role === "Admin"? 
+               <>
+                    <Link to={"/admin/promotion/"+item?._id}>
                         <button class="btn btn-light ml-2">Edit</button>
                     </Link>
+                    </> : <></>}
                 </div>
                 
                 <hr/>

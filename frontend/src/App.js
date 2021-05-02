@@ -21,19 +21,20 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'antd/dist/antd.css';
 import Navbar from './component/Navbar'
+import Admin from './component/sidebar'
 import {
   BrowserRouter,
   Switch,
   Route,
   Link,Redirect
 } from "react-router-dom";
+import React, { Suspense } from 'react';
 import PrivateRoute from '../src/route/PrivateRoute'
 import AdminRoute from '../src/route/AdminRoute'
 import { useSession } from './context/Sessioncontext'
 AOS.init();
 function App() {
     const { user , loading:userLoading} = useSession()
-    console.log(user)
     const adminCheck = (role) =>{
         return role === 'Admin'? true : <Redirect to={{pathname: '/'}} />
     }
@@ -49,20 +50,35 @@ function App() {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossOrigin="anonymous"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></link>
-        <Switch>
+         <Suspense fallback={<div>Loading...</div>}>
+         <Switch>
+       
             <Route exact path='/'><><Homepages/></></Route>
             <Route exact path='/login'><><Login/></></Route>
             <Route exact path='/Register'><><Register/></></Route>
-            <Route exact path='/product'><><Product/></></Route>
-            <Route exact path='/promotion'><><Promotion/></></Route>
+            <Route exact path='/product'><><Navbar/><Product/></></Route>
+            <Route exact path='/promotion'><><Navbar/><Promotion/></></Route>
             <Route exact path='/product/:string'><><Productdetail/></></Route>
             <PrivateRoute exact path='/aboutme'><AboutMe/></PrivateRoute>
             <PrivateRoute exact path='/cart'><Cart/></PrivateRoute>
             <PrivateRoute exact path='/customer/order'><OrderPage/></PrivateRoute>
             <PrivateRoute exact path='/payment'><PaymentPage/></PrivateRoute>
-            <PrivateRoute exact path='/dashboard'><Dashboard/></PrivateRoute>
             <PrivateRoute exact path='/checkout'><CheckOutPage/></PrivateRoute>
             <PrivateRoute exact path='/customer/order/:string'><OrderDetails/></PrivateRoute>
+            <AdminRoute exact path='/admin/dashboard'>
+                {adminCheck(user?.role)}
+                <Dashboard/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/product'>
+                {adminCheck(user?.role)}
+                <Admin/>
+                <Product/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/promotion'>
+                {adminCheck(user?.role)}
+                <Admin/>
+                <Promotion/>
+            </AdminRoute>
             <AdminRoute exact path='/admin/product/create'>
                 {adminCheck(user?.role)}
                 <AddProduct/>
@@ -80,8 +96,10 @@ function App() {
                 <EditPromotion/>
             </AdminRoute>
            <Route path="*"><NotFound /></Route>
-            
-        </Switch>  
+          
+        </Switch>
+        </Suspense>
+           
 
     </>
     

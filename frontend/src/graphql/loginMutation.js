@@ -7,6 +7,7 @@ mutation ($username: String! $password: String!) {
     user {
       _id
       name
+      role
     }
   }
 }

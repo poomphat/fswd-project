@@ -1,15 +1,22 @@
 import './product.css';
 import {useState, useEffect, useCallback} from 'react'
-import Navbar from '../component/Navbar'
 import { useMutation } from '@apollo/client'
 import { FIND_MANY_MUTATION } from '../graphql/findProductMutation'
 import { FILTER_GENDER_PRODUCT } from '../graphql/filterGenderProductsMutation'
 import { COUNT_PRODUCT_MUTAION } from '../graphql/countProduct'
+import { useSession } from '../context/Sessioncontext'
 import ShoesCard from '../component/ShoesCard'
+import {
+    BrowserRouter,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import Pagination from '@material-ui/lab/Pagination';
 import {COUNT_PRODUCT_FILTER_MUTAION} from '../graphql/countProductFilter'
 
 function Product() {
+    const { user , loading:userLoading } = useSession()
     const [page, setPage] = useState(1);
     const [checkfilter, setCheckfilter] = useState('');
     const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION,{variables :{ limit: 6,skip: (page*6)-6 }})
@@ -77,9 +84,17 @@ function Product() {
   return (
    
     <div className="bg">
-        <Navbar/>
             <div className="container mt-5">
                 <h2 className="Texttitle" data-aos="fade-right">Sport Shoes</h2>
+               {user?.role === "Admin"? 
+               <>
+               <Link to="/admin/product/create">
+              <button class="btn btn-light">Add product</button>
+            </Link>
+               </>
+               :<></>}
+            
+           
                 <h5 className="alignend mr-5">Page: {page}</h5>
                 <div className="flexright">
                     <Pagination count={Math.ceil((countPages.countProduct/6))} page={page} onChange={handleChange}/>

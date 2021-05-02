@@ -9,7 +9,8 @@ import { ME_QUERY } from '../graphql/meQuery'
 import { useSession } from '../context/Sessioncontext'
 import { useHistory } from 'react-router-dom'
 import { useCallback } from 'react'
-function Navbar() {
+import Navbar from 'react-bootstrap/Navbar'
+function NavbarStepie() {
   const history = useHistory()
   const { loading, user, logout: handleLogout } = useSession()
   const goToOrder = useCallback(
@@ -22,31 +23,33 @@ function Navbar() {
   
     if (user){
       return(
-        <div>
-        <button class="btn btn-light ml-2" type="button" id="button-addon2" onClick={() => goToOrder()}><a className="loginbutton"> Order </a></button> 
-        <button class="btn btn-danger ml-2" type="button" onClick={handleLogout}>Log out</button>
-        </div>
+        <>
+        <li class="nav-item mt-1">
+          <button class="btn btn-light ml-2" type="button" id="button-addon2" onClick={() => goToOrder()}><a className="loginbutton"> Order </a></button>
+        </li>
+        <li class="nav-item mt-1">
+          <button class="btn btn-danger ml-2" type="button" onClick={handleLogout}>Log out</button>
+        </li>
+        </>
       )
     }
     else{
       return(
         <Link to="/login">
-          <button class="btn btn-light ml-2" type="button" id="button-addon2"><a className="loginbutton">Login</a></button>
+          <button class="btn btn-light ml-2 mt-1" type="button" id="button-addon2"><a className="loginbutton">Login</a></button>
         </Link>
       )
     }
   }
   return (
     <>
-    <nav class="navbar navbar-expand-lg navbar-light container NavStepie">
-        <Link to="/">
-          <a class="navbar-brand Navmain text-dark">STEPIE</a>
+    <Navbar bg="" expand="lg" className="container">
+      <Link to="/">
+          <Navbar.Brand href="#home" className="Navmain text-dark">Stepie</Navbar.Brand>
         </Link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
             <Link to="/product">
@@ -59,26 +62,34 @@ function Navbar() {
             </Link>
             </li>
             <li class="nav-item">
-            <Link to="/admin/promotion/create">
-              <a class="nav-link Navchild">Add Promotion</a>
-            </Link>
-            </li>
-            <li class="nav-item">
-            
+            {user?.role === "Admin"? 
+               <>
+               <Link to="/admin/dashboard">
+                <a class="nav-link Navchild">To Dashboard</a>
+              </Link>
+               </>
+               :<></>}
             </li>
           </ul>
-          <Link to="/aboutme">
-          <a class="nav-link Navchild text-dark">{user?.name}</a>
-         </Link>
-          <Link to="/cart">
-          <button class="btn btn-light ml-2" type="button" id="button-addon2"><a className="loginbutton">CART </a></button>
-          </Link> 
-          <Loginout/>
-        </div>
-      </nav>
-  
+          <ul class="navbar-nav ">
+            <li class="nav-item">
+            <Link to="/aboutme">
+              <a class="nav-link Navchild text-dark">{user?.name}</a>
+            </Link>
+            </li>
+            <li class="nav-item mt-1">
+            <Link to="/cart">
+                <button class="btn btn-light ml-2" type="button" id="button-addon2"><a className="loginbutton">CART </a></button>
+            </Link> 
+            </li> 
+            <Loginout/>
+            </ul>
+
+         
+          </Navbar.Collapse>
+        </Navbar>
     </>
   );  
 }
 
-export default Navbar;
+export default NavbarStepie;

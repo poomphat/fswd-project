@@ -16,7 +16,6 @@ import { Spin, Alert } from 'antd';
 import { Modal, Button } from 'antd';
 
 const ShoesCard = (props) =>{
-    const [modal, contextHolder] = Modal.useModal();
     const item = props.item;
     const [userid, setuserid] = useState('')
     const { user , loading:userLoading } = useSession()
@@ -53,7 +52,6 @@ const ShoesCard = (props) =>{
                         <div class="card bg-light text-dark shadow shoecard">
                             <img class="card-img-top imgs" src={(item?.imgUrl==null || !item?.imgUrl )?notfound: item?.imgUrl} alt="Card image cap" crossOrigin="anonymous" />
                             <div class="card-body">
-                            {contextHolder}
                                 <h5 class="card-title">{item?.productName}</h5>
                                 <p class="card-text">{item?.productDesc}</p>   
                             </div>
@@ -62,18 +60,22 @@ const ShoesCard = (props) =>{
                                 <div className="row mt-2">
                         
                                     <div className="col-6">
-                                        <Link to={"/productdetail/"+ item?._id}>
+                                        <Link to={"/product/"+ item?._id}>
                                             <a href="#" class="btn btn-light col">more</a>
                                         </Link>
                                     </div>
                                     <div className="col-6">
                                         <Addbutton/>
                                     </div>
+                                    {user?.role === "Admin"? 
+                                    <>
                                     <div className="col-12 my-2">
+                                        
                                     <Link to={"/admin/product/"+ item?._id}>
                                         <button class="btn btn-dark col">Edit</button>
                                         </Link>
                                     </div>
+                                    </>:<></>}
                                 </div>
                             </div>
                         </div> 
