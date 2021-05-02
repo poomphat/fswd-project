@@ -88,7 +88,9 @@ function AboutMe() {
                         <label class="form-label" for="address">Name</label>
                         <input type="text" class="form-control bg-light" placeholder="Name" id="address" required/> 
                       </div>
+                      <button className="btn btn-warning mr-1" onClick={() => setEdit(!edit)}>Edit</button> 
                   </div>
+                  
               </div>
               <div className="col-lg-6 col-xs-12 mt-2">
                   <div className="col-12 bg-light text-dark box" data-aos="fade-up" data-aos-delay="100">
