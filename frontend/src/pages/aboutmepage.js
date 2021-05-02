@@ -17,6 +17,7 @@ function AboutMe() {
     const [zipCode, setZipCode] = useState(null)
     const [province, setProvince] = useState(null)
     const [phoneNumber, setPhoneNumber] = useState(null)
+    const [customerAddress, setCustomerAddress] = useState(null)
     const [filterCustomer, {data:customerData, loading:customerLoading}] = useLazyQuery(FILTER_CUSTOMER , { fetchPolicy: 'network-only' })
 
     useMemo( () => {
@@ -28,14 +29,16 @@ function AboutMe() {
     useMemo(() => {
       if(!customerLoading && customerData){
         console.log(customerData)
+        const customer = customerData?.customer?.address
         setName(user?.name)
-        setAddress(customerData?.address)
-        setDistrict(customerData?.district)
-        setSubDistrict(customerData?.subDistrict)
-        setCountry(customerData?.country)
-        setZipCode(customerData?.zipcode)
-        setProvince(customerData?.province)
-        setPhoneNumber(customerData?.tel)
+        setAddress(customer?.address)
+        setDistrict(customer?.district)
+        setSubDistrict(customer?.subDistrict)
+        setCountry(customer?.country)
+        setZipCode(customer?.zipcode)
+        setProvince(customer?.province)
+        setPhoneNumber(customer?.tel)
+        setCustomerAddress(customer)
       }
     }, [customerLoading])
 
@@ -55,8 +58,12 @@ function AboutMe() {
             </div>
             <div className="col-lg-6 col-xs-12 mt-2">
                 <div className="col-12 bg-light text-dark box" data-aos="fade-up" data-aos-delay="100">
-                    <h3 className="Texttitle mt-2">Address : {console.log(customerData)}</h3>
-                    <h5 className="mt-2">tel :</h5>
+                    <h3 className="Texttitle mt-2">Address</h3>
+                    <p>{customerAddress?.address+" "+customerAddress?.subDistrict
+                    +" "+customerAddress?.district+" "+customerAddress?.province
+                    +", "+customerAddress?.country+" "+customerAddress?.zipcode}
+                    </p>
+                    <h5 className="mt-2">{customerAddress?.tel}</h5>
                 </div>
             </div>
       </div>
