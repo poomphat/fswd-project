@@ -1,9 +1,9 @@
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client"
 
 export const CREATE_PROMOTION = gql`
-  mutation createPromotion($record: CreateOnePromotionInput!) {
-    createPromotion(record: $record) {
-      recordId
+    mutation createPromotion($record: CreateOnePromotionInput!) {
+        createPromotion(record: $record) {
+            recordId
+        }
     }
-  }
-`;
+`

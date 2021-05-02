@@ -1,31 +1,31 @@
 .Texttitle {
-  text-align: center;
+    text-align: center;
 }
 .cartlist {
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 .control {
-  margin: auto;
-  justify-content: center;
-  align-items: center;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .Totallist {
-  border-radius: 8px;
-  padding: 20px;
+    border-radius: 8px;
+    padding: 20px;
 }
 .imgcart {
-  border-radius: 10px !important;
-  object-fit: cover;
-  height: 130px;
+    border-radius: 10px !important;
+    object-fit: cover;
+    height: 130px;
 }
 .flexbetween {
-  justify-content: space-between;
+    justify-content: space-between;
 }
 .justifycenter {
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }

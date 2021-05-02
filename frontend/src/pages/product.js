@@ -73,7 +73,7 @@ function Product() {
       return (
         <>
           {product?.map((item, i) => {
-            return <ShoesCard item={item} />;
+            return <ShoesCard item={item} fatchAll={allProduct}/>;
           })}
         </>
       );

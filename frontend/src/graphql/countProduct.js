@@ -1,7 +1,7 @@
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client"
 
 export const COUNT_PRODUCT_MUTAION = gql`
-  mutation {
-    countProduct
-  }
-`;
+    mutation {
+        countProduct
+    }
+`

@@ -1,27 +1,27 @@
 .NavStepie {
-  background-color: rgba(255, 255, 255, 0) !important;
-  height: 70px;
+    background-color: rgba(255, 255, 255, 0) !important;
+    height: 70px;
 }
 .justifycenter {
-  align-items: flex-end;
+    align-items: flex-end;
 }
 .Navmain {
-  color: #000;
-  font-weight: bold;
-  font-size: 22px;
+    color: #000;
+    font-weight: bold;
+    font-size: 22px;
 }
 .Navchild {
-  font-size: 20px;
-  color: #000;
-  font-weight: 600;
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
 }
 input {
-  border: none !important;
-  background-color: rgb(173, 173, 173) !important;
+    border: none !important;
+    background-color: rgb(173, 173, 173) !important;
 }
 .loginbutton {
-  font-weight: bold;
+    font-weight: bold;
 }
 .btn-light {
-  border: 2px solid rgb(0, 0, 0) !important;
+    border: 2px solid rgb(0, 0, 0) !important;
 }
