@@ -19,6 +19,7 @@ function AboutMe() {
     const [phoneNumber, setPhoneNumber] = useState(null)
     const [customerAddress, setCustomerAddress] = useState(null)
     const [filterCustomer, {data:customerData, loading:customerLoading}] = useLazyQuery(FILTER_CUSTOMER , { fetchPolicy: 'network-only' })
+    const [edit, setEdit] = useState(false)
 
     useMemo( () => {
       if(!loading && user){
@@ -59,11 +60,13 @@ function AboutMe() {
             <div className="col-lg-6 col-xs-12 mt-2">
                 <div className="col-12 bg-light text-dark box" data-aos="fade-up" data-aos-delay="100">
                     <h3 className="Texttitle mt-2">Address</h3>
+                    <hr/>
                     <p>{customerAddress?.address+" "+customerAddress?.subDistrict
                     +" "+customerAddress?.district+" "+customerAddress?.province
                     +", "+customerAddress?.country+" "+customerAddress?.zipcode}
                     </p>
-                    <h5 className="mt-2">{customerAddress?.tel}</h5>
+                    <p className="mt-2">{customerAddress?.tel}</p>
+                    <hr/>
                 </div>
             </div>
       </div>
@@ -123,8 +126,7 @@ function AboutMe() {
    
     <div className="bg">
         <Navbar/>
-        <AboutMeEdit/>
-        <AboutMe/>
+        {edit?<AboutMeEdit/>:<AboutMe/>}
     </div>
     
   );  
