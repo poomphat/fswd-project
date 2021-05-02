@@ -1,31 +1,31 @@
-.Texttitle{
-    text-align: center;
+.Texttitle {
+  text-align: center;
 }
-.cartlist{
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+.cartlist {
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
-.control{
-    margin: auto;
-    justify-content: center;
-    align-items: center;
+.control {
+  margin: auto;
+  justify-content: center;
+  align-items: center;
 }
 
-.Totallist{ 
-    border-radius: 8px;
-    padding: 20px;
+.Totallist {
+  border-radius: 8px;
+  padding: 20px;
 }
-.imgcart{
-    border-radius: 10px !important;
-    object-fit: cover;
-    height: 130px;
+.imgcart {
+  border-radius: 10px !important;
+  object-fit: cover;
+  height: 130px;
 }
-.flexbetween{
-    justify-content: space-between;
+.flexbetween {
+  justify-content: space-between;
 }
-.justifycenter{
-    align-items: center;
-    flex-direction: row;
-    justify-content:center;
+.justifycenter {
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
 }

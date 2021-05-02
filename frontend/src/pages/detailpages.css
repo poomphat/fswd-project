@@ -1,13 +1,13 @@
-.textbold{
-    font-weight: bold;
+.textbold {
+  font-weight: bold;
 }
-.imgdetail{
-    width: 100%;
-    border-radius: 10px;
+.imgdetail {
+  width: 100%;
+  border-radius: 10px;
 }
-.bghaft{
-    height: 100vh;
-    background-image: url('../asset/bg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+.bghaft {
+  height: 100vh;
+  background-image: url("../asset/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }

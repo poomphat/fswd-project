@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const FIND_ALL_ORDER = gql`
-query {
+  query {
     orders {
       _id
       totalPrice
@@ -21,4 +21,4 @@ query {
       }
     }
   }
-`
+`;

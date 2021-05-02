@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const FIND_ALL_CARTPRODUCT = gql`
 query{
@@ -7,4 +7,4 @@ query{
       cartId
     }
   }
-`
+`;

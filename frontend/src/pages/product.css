@@ -1,31 +1,30 @@
-
-.Texttitle{
-    font-weight: bold !important;
+.Texttitle {
+  font-weight: bold !important;
 }
-.filter{
-    padding: 5px 10px;
-    border-radius: 5px !important;
-    border: 1px solid rgb(231, 231, 231);
-    transition: 0.05s ease-in;
+.filter {
+  padding: 5px 10px;
+  border-radius: 5px !important;
+  border: 1px solid rgb(231, 231, 231);
+  transition: 0.05s ease-in;
 }
-.filter:hover{
-    border: 1px solid #292b2c;
+.filter:hover {
+  border: 1px solid #292b2c;
 }
-.shadow{
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+.shadow {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
-.shoecard{
-    border-radius: 9px !important;
+.shoecard {
+  border-radius: 9px !important;
 }
-.alignend{
-    text-align: right;
-    font-weight: bold;
+.alignend {
+  text-align: right;
+  font-weight: bold;
 }
-.flexright{
-    align-items: flex-end !important;
-    display: flex;
-    justify-content: flex-end
+.flexright {
+  align-items: flex-end !important;
+  display: flex;
+  justify-content: flex-end;
 }
-.quantity{
-    border: 2px solid black !important;
+.quantity {
+  border: 2px solid black !important;
 }

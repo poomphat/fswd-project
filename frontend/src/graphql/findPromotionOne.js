@@ -1,23 +1,22 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
-  export const FIND_PROMOTION_ONE = gql`
-  query ($promotionId:MongoID){
-    promotion(filter:{_id:$promotionId}){
+export const FIND_PROMOTION_ONE = gql`
+  query($promotionId: MongoID) {
+    promotion(filter: { _id: $promotionId }) {
       promotionName
       promotionDesc
-        discountInPercent
-      disProduct{
-           _id
+      discountInPercent
+      disProduct {
+        _id
         productName
         productDesc
         price
         catagory
         imgUrl
-        hasStock{
+        hasStock {
           quantity
         }
       }
     }
   }
-  `
-  
+`;

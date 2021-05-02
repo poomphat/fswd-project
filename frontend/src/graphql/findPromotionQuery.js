@@ -1,14 +1,14 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const FIND_ALL_PROMOTIONS = gql`
-query{
-    promotions{
+  query {
+    promotions {
       promotionName
       promotionDesc
       discountInPercent
       _id
       productId
-          disProduct{
+      disProduct {
         imgUrl
         productName
         price
@@ -16,4 +16,4 @@ query{
       }
     }
   }
-`
+`;
