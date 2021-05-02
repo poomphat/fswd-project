@@ -16,7 +16,10 @@ import OrderDetails from '../src/pages/orderdetail'
 import AddPromotion from '../src/pages/addpromotion'
 import EditPromotion from '../src/pages/editPromotion'  
 import EditProduct from '../src/pages/editproduct'
+import AllOrder from '../src/pages/allorderpage'
 import NotFound from '../src/pages/notfound'
+import AboutMeEdit from '../src/pages/aboutMeEdit'
+import OrderDetailAdmin from '../src/pages/adminOrderDetail'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'antd/dist/antd.css';
@@ -60,11 +63,12 @@ function App() {
             <Route exact path='/promotion'><><Navbar/><Promotion/></></Route>
             <Route exact path='/product/:string'><><Productdetail/></></Route>
             <PrivateRoute exact path='/aboutme'><AboutMe/></PrivateRoute>
+            <PrivateRoute exact path='/aboutme/edit'><Navbar/><AboutMeEdit/></PrivateRoute>
             <PrivateRoute exact path='/cart'><Cart/></PrivateRoute>
             <PrivateRoute exact path='/customer/order'><OrderPage/></PrivateRoute>
             <PrivateRoute exact path='/payment'><PaymentPage/></PrivateRoute>
             <PrivateRoute exact path='/checkout'><CheckOutPage/></PrivateRoute>
-            <PrivateRoute exact path='/customer/order/:string'><OrderDetails/></PrivateRoute>
+            <PrivateRoute exact path='/customer/order/:string'><Navbar/><OrderDetails/></PrivateRoute>
             <AdminRoute exact path='/admin/dashboard'>
                 {adminCheck(user?.role)}
                 <Dashboard/>
@@ -94,6 +98,16 @@ function App() {
             <AdminRoute exact path='/admin/promotion/:string'>
                 {adminCheck(user?.role)}
                 <EditPromotion/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/order'>
+                {adminCheck(user?.role)}
+                <Admin/>
+                <AllOrder/>
+            </AdminRoute>
+            <AdminRoute exact path='/admin/order/:string'>
+                {adminCheck(user?.role)}
+                <Admin/>
+                <OrderDetailAdmin/>
             </AdminRoute>
            <Route path="*"><NotFound /></Route>
           

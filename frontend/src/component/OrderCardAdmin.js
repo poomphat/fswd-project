@@ -1,68 +1,45 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState, useMemo } from 'react'
 import { gql, useMutation, useQuery, useLazyQuery  } from '@apollo/client'
-import { notification, Space } from 'antd';
+import { notification, Space, Radio } from 'antd';
 import notfound from '../asset/notfound.jpg'
 import { Accordion, Button } from "react-bootstrap";
-import { useHistory } from 'react-router-dom'
 import { UPDATE_ORDER_STATUS } from '../graphql/updateOrderMutation'
 
-const OrderCard = (props) => {
+const OrderCardAdmin = (props) => {
+    const item = props?.item
+    const [status, setStatus] = useState(item?.status)
     const [updateOrderStatus] = useMutation(UPDATE_ORDER_STATUS, {
         onCompleted:()=>{
             notification.success(sucessNotification)
-            history.push('/')
         }
     })
-    const item  = props.item
-    const history = useHistory()
     const sucessNotification = {
-        message: "Cancel Success",
-        description: "D:",
+        message: "Update status Success",
+        description: "update status in order",
         duration: 2
     }
-    const goToCheckOut = useCallback(
-        (order) => {
-          history.push({
-              pathname: '/checkout',
-              order : order
-          })
-        },
-        [history],
-      )
-    const goTodetail = useCallback(
-        (order) => {
-          history.push({
-              pathname: '/customer/order/'+item?._id,
-              order : order
-          })
-        },
-        [history],
-      )
-    const cancelOrder = (item) => {
-        updateOrderStatus({variables:{orderId:item?._id, status:'CANCEL'}})
+    const updateOrder = (item) => {
+        updateOrderStatus({variables:{orderId:item?._id, status:status}})
     }
-    console.log(props.disablePay)
+
+    const handleStatusChange = (e) =>{
+        setStatus(e.target.value)
+    }
     return(
         <>
         <div class="col-lg-12 col-sm-12 row cartlist boxorder bg-light ml-0 pl-3 mb-4"> 
-            <div className={"boxstatus"+((item?.status === "WAITING")? " bg-warning" : (item?.status==="CANCEL")? "bg-secondary" : "bg-sucess" )} ></div>
+            <div className={"boxstatus"+((status === "WAITING")? " bg-warning" : (status==="CANCEL")? " bg-secondary" : " bg-success" )} ></div>
             <div className="col-12 pr-0"> 
             <Accordion defaultActiveKey="0">
             <div className="flexbetween row ml-1 mr-1">
             <h4 class="card-title textbold mt-2">Order : {item?._id}</h4> 
-                <div>
-                {(item?.status === "WAITING" && !props.disablePay)
-                    ? 
-                    <>
-                        <button className="btn btn-danger mr-1" onClick={() => cancelOrder(item)}>Cancel</button> 
-                        <button className="btn btn-light" onClick={() => goToCheckOut(item)}>Checkout</button> 
-                    </> 
-                    : 
-                    <></> 
-                }
-                </div>
             </div>
-            <p>Status : {item?.status}</p>
+            <p>Status : </p>
+            <Radio.Group value={status} onChange={handleStatusChange}>
+                <Radio.Button value="WAITING">WAITING</Radio.Button>
+                <Radio.Button value="PAID">PAID</Radio.Button>
+                <Radio.Button value="CANCEL">CANCEL</Radio.Button>
+            </Radio.Group>
             <hr/>            
             <h5>Total: {item?.totalPrice} USD</h5>
             <Accordion.Toggle as={Button} variant="btn btn-dark mt-1" eventKey="0798978">Product List</Accordion.Toggle>
@@ -95,6 +72,7 @@ const OrderCard = (props) => {
                   </Accordion>
             <hr/>
             </div>
+            <button className="btn btn-primary ml-3" onClick={() => updateOrder(item)}>Update</button> 
             
            
         </div>
@@ -103,4 +81,4 @@ const OrderCard = (props) => {
     )
 }
 
-export default OrderCard;
+export default OrderCardAdmin;

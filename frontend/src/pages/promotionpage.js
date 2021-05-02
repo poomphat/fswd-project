@@ -20,13 +20,16 @@ function PromotionPage() {
     <div className="bg">
             <div className="container mt-5">
                 <h2 className="Texttitle" data-aos="fade-right">Promotion</h2>
-                {user?.role === "Admin"? 
-               <>
-               <Link to="/admin/promotion/create">
-              <button class="btn btn-light">Add Promotion</button>
-            </Link>
-               </>
-               :<></>}
+                {user?.role === "Admin"
+                ? 
+                  <>
+                    <Link to="/admin/promotion/create">
+                      <button class="btn btn-light">Add Promotion</button>
+                    </Link>
+                  </>
+                :
+                  <></>
+                }
             
                 <hr data-aos="fade-right"></hr>
                 <div className="row">

@@ -19,7 +19,6 @@ function Detailsproduct() {
   return (
    
     <div className="bg">
-        <Navbar/>
         <div className="container">
           <h2 className="Texttitle mt-5" data-aos="fade-right">Order : {item?._id} </h2>
           <hr/>

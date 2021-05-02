@@ -25,6 +25,9 @@
     height: 100vh;
     justify-content: center;
 }
+.float{
+    display: inline-block;
+}
 @media screen and (max-width: 1000px) {
     .content{
         padding: 1rem;
@@ -36,7 +39,9 @@
         justify-content: center
     }
 }
-  
+.prohomepage{
+    width: 500px;
+}
 .textdescript{
     font-size: 16px;
 }
@@ -78,16 +83,16 @@
     color: rgb(185, 185, 185);
     font-weight: 400;
 }
-.productlist{
+
+.productlist > .row {
+    display: block;
     overflow-x: auto;
-    display: inline-block;
     white-space: nowrap;
-}
+  }
 .carditem{
     display: inline-block;
-    float: none;
-    width: 300px !important;
     border-radius: 9px !important;
+    width: 200px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 .imgs{

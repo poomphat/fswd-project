@@ -12,6 +12,7 @@ import { useSession } from '../context/Sessioncontext'
 import { useMutation, useLazyQuery  } from '@apollo/client'
 import {useCallback, useEffect,useState,useMemo} from 'react'
 import { updateProductCartHandler } from './updateCartHandler'
+import { DELETE_PRODUCT_BY_ID } from '../graphql/deleteProductByIdMutation'
 import { Spin, Alert } from 'antd';
 import { Modal, Button } from 'antd';
 
@@ -21,6 +22,7 @@ const ShoesCard = (props) =>{
     const { user , loading:userLoading } = useSession()
     const [createProductCart] = useMutation(CREATE_PRODUCT_CART_MUTATION)
     const [getCart, {loading,data:datacart}] = useLazyQuery(FIND_CART_QUERY, { fetchPolicy: 'network-only' })
+    const [deleteProduct] = useMutation(DELETE_PRODUCT_BY_ID)
     //console.log(user?._id)
 
     useMemo( () =>{
@@ -45,6 +47,9 @@ const ShoesCard = (props) =>{
                 updateProductCartHandler(productCartData)
             }}>Add</button>
     }
+    const deleteProductHandler = () =>{
+        deleteProduct({variables:{productId:item?._id}})
+    }
     const ShoesDetail = () => {
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
             return(  
@@ -59,23 +64,30 @@ const ShoesCard = (props) =>{
                                 <h6 className="boldhead mb-0 totaltext mt-2 ml-1">{item?.price} USD</h6>
                                 <div className="row mt-2">
                         
-                                    <div className="col-6">
+                                    {user?.role === "Admin"
+                                    ? 
+                                        <>
+                                        <div className="col-6 my-2">   
+                                            <Link to={"/admin/product/"+ item?._id}>
+                                                <button class="btn btn-dark col">Edit</button>
+                                            </Link>
+                                        </div>
+                                        <div className="col-6 mt-2">   
+                                            <button class="btn btn-danger col" onClick={() => deleteProductHandler()}>Delete</button>
+                                        </div>
+                                        </>
+                                    :
+                                        <>
+                                        <div className="col-6 ">
                                         <Link to={"/product/"+ item?._id}>
                                             <a href="#" class="btn btn-light col">more</a>
                                         </Link>
-                                    </div>
-                                    <div className="col-6">
-                                        <Addbutton/>
-                                    </div>
-                                    {user?.role === "Admin"? 
-                                    <>
-                                    <div className="col-12 my-2">
-                                        
-                                    <Link to={"/admin/product/"+ item?._id}>
-                                        <button class="btn btn-dark col">Edit</button>
-                                        </Link>
-                                    </div>
-                                    </>:<></>}
+                                        </div>
+                                        <div className="col-6">
+                                            <Addbutton/>
+                                        </div>
+                                        </>
+                                    }
                                 </div>
                             </div>
                         </div> 

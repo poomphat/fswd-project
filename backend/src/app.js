@@ -38,6 +38,7 @@ const server = new ApolloServer({
   uploads: false,
   schema,
   playground: true,
+  introspection: true,
   context: ({ req }) => ({ user: req.user, uploadFile}),
 })
 

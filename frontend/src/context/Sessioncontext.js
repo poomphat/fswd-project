@@ -23,6 +23,7 @@ export const SessionProvider = (props) => {
       const res = await login({ variables: { username, password } })
       if (res?.data?.login?.token) {
         setCookie('token', res?.data?.login?.token, { maxAge: 86400 })
+        console.log(res?.data?.login?.user)
         setUser(res?.data?.login?.user)
       } else {
         throw new Error(res?.errors?.[0]?.message)

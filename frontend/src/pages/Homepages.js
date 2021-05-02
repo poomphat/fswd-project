@@ -18,7 +18,7 @@ import { FIND_ALL_PROMOTIONS_HOMEPAGE } from '../graphql/findPromotionHomepage'
 import PromotionCard from '../component/promotionCard'
 
 function Homepages() {
-    const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION_HOMEPAGE,{variables :{ limit: 4,skip: 0 }})
+    const [findManyProduct, {loading}] = useMutation(FIND_MANY_MUTATION_HOMEPAGE,{variables :{ limit: 6,skip: 0 }})
     const [product, setProduct] = useState()
     const { load, data } = useQuery(FIND_ALL_PROMOTIONS_HOMEPAGE)
     const [promotions, setPromotions] = useState()
@@ -61,11 +61,12 @@ function Homepages() {
               <h2 className="textbold">Latest product</h2>
               <hr/>
               <div>
-              <div className="productlist pb-4 row">
+              <div className="productlist pb-4 container">
 
+              <div className="row pb-4">
               {product?.findManyProduct?.map((item, i) => {
                     return (
-                        <div class="card text-dark carditem bg-light ml-3" data-aos="zoom-in" style={{width: "200px"}}>
+                        <div class="text-dark carditem bg-light ml-3 " data-aos="zoom-in">
                             <img class="card-img-top imgs" src={(item?.imgUrl==null)?notfound:item?.imgUrl} alt="Card image cap"/>
                             <div class="card-body">
                                 <h5 class="card-title TopicSecond">{item?.productName}</h5>
@@ -75,7 +76,7 @@ function Homepages() {
                             <div class="card-footer text-dark flexbe ">
                                 
                                 <h6 className="boldhead mb-0 totaltext mt-2 ">{item?.price} USD</h6>
-                                <Link to={"/productdetail/"+ item?._id}>
+                                <Link to={"/product/"+ item?._id}>
                                     <button class="btn btn-light col mt-2">More</button>
                                 </Link>
                                     
@@ -83,7 +84,7 @@ function Homepages() {
                         </div>
                     );
                     })}
-
+                </div>
                 </div>
             </div>
           </div>
@@ -91,13 +92,12 @@ function Homepages() {
               <h2 className="textbold">Latest promotion</h2>
               <hr/>
               
-              <div className="productlist row pb-4">
-
+              <div className="productlist pb-4">
+                <div className="row col-12 pb-4">
               {data?.promotions?.map((item, i) => {
                     return (
-                     
-                        <div className="productlist">
-                        <div className="col-lg-12 mr-0 pr-0 row mainnaja">
+                     <div className="float" style={{width: "550px"}}>
+                        <div className="mr-0 row mainnaja prohomepage">
                                 <div className="headborder bg-dark text-light col-4 pl-0 pr-0 pt-0 pb-0"  style={{backgroundImage: "url(" + item?.disProduct?.imgUrl + ")"}}>
                                     <div className="filterbgpromo">
                                         <p className="mb-1 textsmall">promotion</p>
@@ -119,9 +119,9 @@ function Homepages() {
                                     </div>
                                 </div>
                             </div>
-                        </div>);
+                            </div>);
                     })}
-
+                </div>
           </div>
           </div>
           <div className="row center">

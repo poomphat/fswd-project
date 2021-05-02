@@ -10,6 +10,7 @@ export const updateProductById = ProductTC.getResolver('updateById')
 export const removeProductById = ProductTC.getResolver('removeById')
 export const countProduct = ProductTC.getResolver('count')
 export const deleteProductOne = ProductTC.getResolver('removeOne')
+export const deleteProductById = ProductTC.getResolver('removeById')
 
 
 export const upload = schemaComposer.createResolver({

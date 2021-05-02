@@ -30,7 +30,7 @@ export const login = schemaComposer.createResolver({
   type: LoginPayload,
   resolve: async ({ args }) => {
     const { username, password } = args
-    const user = await UserModel.findOne({   })
+    const user = await UserModel.findOne({ username })
     if (!user) {
       throw new UserInputError(`Username ${username} not found`)
     }

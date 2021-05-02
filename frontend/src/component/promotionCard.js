@@ -51,12 +51,6 @@ const PromotionCard = (props) =>{
                 <div class="bg-light col-8 bodyborder">  
                 <div className="row flexbetween ml-2 mr-2">
                     <h6 className="boldhead mb-1">{item?.disProduct?.productName}</h6>
-                    {user?.role === "Admin"? 
-               <>
-                    <Link to={"/admin/promotion/"+item?._id}>
-                        <button class="btn btn-light ml-2">Edit</button>
-                    </Link>
-                    </> : <></>}
                 </div>
                 
                 <hr/>
@@ -64,7 +58,15 @@ const PromotionCard = (props) =>{
                
                     <div className="flexbe row pr-3 pl-3"> 
                         <h5 className="boldhead mb-0 totaltext mt-2">Total : {Math.floor(item?.disProduct?.price*((100-item?.discountInPercent)/100))} USD</h5>
-                        <Addbutton/>
+                        {user?.role !== "Admin"? <Addbutton/>
+                        :
+                        <>
+                            <Link to={"/admin/promotion/"+item?._id}>
+                                <button class="btn btn-light">Edit</button>
+                            </Link>
+                            <button class="btn btn-danger">Delete</button>
+                        </> 
+                        }
                     </div>
                 </div>
             </div>

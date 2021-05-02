@@ -31,6 +31,11 @@ function Adminnav() {
               <a class="nav-link Navchild">Product</a>
             </Link>
             </li>
+            <li class="nav-item">
+            <Link to="/admin/order">
+              <a class="nav-link Navchild">Order</a>
+            </Link>
+            </li>
             
           </ul>
           <Link to="/">
