@@ -13,7 +13,7 @@ import { SessionProvider } from "./context/Sessioncontext"
 const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: createUploadLink({
-        uri: "https://backendstepie.herokuapp.com/graphql",
+        uri: "http://localhost:3001/graphql",
         credentials: "include",
     }),
 })
